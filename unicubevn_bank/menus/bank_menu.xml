@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) by The Bean Family, 2023.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
+     These code are maintained by The Bean Family.-->
+<odoo>
+  <!-- Menu -->
+  <menuitem id="bank_base_menu" name="Banks" action="bank_menu_act_acc_list" sequence="6" web_icon="unicubevn_bank,static/icons/bank.png" />
+  <menuitem name="Account List" id="bank_base_menu_1" parent="bank_base_menu" action="bank_menu_act_acc_list" />
+  <menuitem name="Bank List" id="bank_base_menu_2" parent="bank_base_menu" action="bank_menu_act_bank_list" />
+  <menuitem name="Bank Log" id="bank_base_menu_3"  parent="bank_base_menu" action="ipn_log_list_view" groups="base.group_no_one"/>
+
+</odoo>

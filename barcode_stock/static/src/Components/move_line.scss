@@ -1,0 +1,22 @@
+// .selectedMove {
+//     // background-color: #a7c8f3;
+//     border: 3px solid #07ec53;
+//   }
+.o_digipad_widget{
+    display: flex;
+    flex-wrap: wrap
+}
+.o_digipad_digit_buttons{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    
+}
+
+.fixed-bottom {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+}

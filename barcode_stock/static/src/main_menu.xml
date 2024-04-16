@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <div t-name="MainMenu" class=" ">
+
+        <div class="">
+            <div class="o_stock_barcode_container position-relative d-flex justify-content-center mt-4 mb-5 z-1">
+                <div t-if='mobileScanner' class="o_stock_mobile_barcode_container">
+                    <button class="btn btn-primary o_stock_mobile_barcode position-absolute top-50 start-50 translate-middle opacity-75" t-on-click="openMobileScanner">
+                        <i class="fa fa-camera fa-2x o_mobile_barcode_camera"/> Tap to scan
+                    </button>
+                    <img src="/barcodes/static/img/barcode.png" alt="Barcode" class="img-fluid mb-1 mt-1 p-4"/>
+                </div>
+                <img t-else="" src="/barcodes/static/img/barcode.png" alt="Barcode" class="img-fluid mb-1 mt-1"/>
+                <span class="o_stock_barcode_laser"/>
+            </div>
+            <ul class="d-flex flex-column align-content-center flex-wrap text-start mb-sm-5 ps-4">
+                <li>Scan an <b>operation type</b> to create a new transfer.</li>
+                <li t-if="locationsEnabled">Scan a <b>location</b> to create a new transfer from this location.</li>
+                <li>Scan a <b>document</b> to open it.</li>
+                <li>Scan a <b>product</b> to show its location and quantity.</li>
+                <li t-if="packagesEnabled">Scan a <b>package</b> to know its content.</li>
+            </ul>
+
+            <hr class="mb-4 d-none d-sm-block"/>
+            <div class="o_main_menu_buttons row align-content-center z-1">
+                <div class=" col-sm-6">
+                    <button class="button_operations btn btn-block btn-primary mb-4 w-100 p-2"
+                    t-on-click="() => this.open_view('smartbiz_stock.stock_picking_type_kanban')">
+                        Operations
+                    </button>
+                </div>
+                <div class=" col-sm-6">
+                    <button class="button_inventory btn btn-block btn-primary mb-4 w-100 p-2"
+                            t-on-click="() => this.actionService.doAction('stock_barcode.stock_barcode_inventory_client_action')">
+                        Inventory Adjustments (<t t-out="this.quantCount"/>)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</templates>

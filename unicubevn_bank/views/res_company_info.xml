@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="unicubevn_company_view" model="ir.ui.view">
+        <field name="name">res.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="replace">
+                <field name="partner_id" string="Contact" readonly="1" required="0" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='website']" position="after">
+                <field name="default_bank_acc" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

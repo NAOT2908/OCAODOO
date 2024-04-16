@@ -1,0 +1,62 @@
+<odoo>
+  <data>
+    <record id="sale_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//notebook" position="after">
+              <group>
+                <field name="order_quantity"/>
+                  <field name="deliver_quantity"/>
+                  <field name="invoice_quantity"/>
+<!--                  <button name="count_total_order" type="object" class="btn-primary"/>-->
+              </group>
+            </xpath>
+        </field>
+    </record>
+  </data>
+</odoo>
+
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="bi_product_history.action_window">
+      <field name="name">bi_product_history window</field>
+      <field name="res_model">bi_product_history.bi_product_history</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="bi_product_history.action_server">
+      <field name="name">bi_product_history server</field>
+      <field name="model_id" ref="model_bi_product_history_bi_product_history"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="bi_product_history" id="bi_product_history.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="bi_product_history.menu_1" parent="bi_product_history.menu_root"/>
+    <menuitem name="Menu 2" id="bi_product_history.menu_2" parent="bi_product_history.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="bi_product_history.menu_1_list" parent="bi_product_history.menu_1"
+              action="bi_product_history.action_window"/>
+    <menuitem name="Server to list" id="bi_product_history" parent="bi_product_history.menu_2"
+              action="bi_product_history.action_server"/>
+-->

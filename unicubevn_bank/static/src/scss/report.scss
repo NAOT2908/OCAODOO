@@ -1,0 +1,255 @@
+// css for sale receipt
+.bean_receipt {
+  background: #eeeeee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.article{
+ width: 100%;
+  padding: 0px;
+}
+
+.page.bean_page {
+
+  //font-size: 14px!important;
+  font-family: 'Roboto' !important;
+  background: #ffffff;
+  max-width: 320px;
+  width: 320px;
+  padding: 8px;
+  display: block !important;
+  //flex-direction: column;
+  //border: solid 1px #000000;
+
+  .company {
+    .logo {
+      padding: 4px;
+      // width: 25%;
+      img {
+        width: 90%;
+        max-width: 72px;
+      }
+    }
+
+    .c_detail {
+      padding: 0px;
+
+      p {
+        font-size: 10px;
+        word-break: break-all;
+        white-space: normal;
+      }
+    }
+  }
+
+  #informations{
+     font-size: 0.75rem;
+  }
+
+  .customer {
+    font-size: 0.75rem;
+  }
+
+  .address {
+    font-size: 0.75rem;
+  }
+  .phone {
+    font-size: 0.75rem;
+  }
+
+  .bill_detail {
+    padding: 0px;
+
+    table {
+      width: 100%;
+      font-size: 0.75rem;
+      td,th {
+        //   border: solid 1px;
+        padding: 2px 4px;
+      }
+      .product_line{
+        .unit_price{
+          font-size: 0.5rem;
+          padding-left: 8px;
+        }
+      }
+    }
+  }
+
+  .bill_subtotal {
+
+    margin-bottom: 8px;
+    margin-top: 8px;
+    table{
+      font-size: 0.75rem;
+    }
+  }
+
+  #total{
+    table{
+      font-size: 0.75rem;
+    }
+
+  }
+  .qrcode {
+
+    .title {
+      width: 100%;
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+
+    .row {
+      align-items: center;
+      -webkit-box-align: center;
+    }
+
+    .col-7 {
+      padding: 8px;
+
+    }
+
+    .col-5 {
+      padding: 4px;
+      font-size: 0.75rem;
+    }
+  }
+
+  .order-detail {
+    text-align: center;
+    font-size: 8px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+}
+
+@media print {
+  .bean_receipt{
+    display: block!important;
+    background: #ffffff;
+    padding: 0px;
+
+    .print_button{
+      display: none;
+    }
+  }
+  .bean_page {
+
+    //font-size: 14px!important;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-family: 'Roboto' !important;
+    background: #ffffff;
+    max-width: 320px;
+    width: 320px;
+    padding: 8px;
+    display: block;
+    //flex-direction: column;
+    //border: solid 1px #000000;
+
+    .company {
+      .logo {
+        padding: 4px;
+        // width: 25%;
+        img {
+          width: 90%;
+          max-width: 72px;
+        }
+      }
+
+      .c_detail {
+        padding: 0px;
+
+        p {
+          font-size: 10px;
+          word-break: break-all;
+          white-space: normal;
+        }
+      }
+    }
+
+    #informations{
+      font-size: 0.75rem;
+    }
+
+    .customer {
+      font-size: 0.75rem;
+    }
+
+    .address {
+      font-size: 0.75rem;
+    }
+    .phone {
+      font-size: 0.75rem;
+    }
+
+    .bill_detail {
+      padding: 0px;
+
+      table {
+        width: 100%;
+        font-size: 0.75rem;
+        td,th {
+          //   border: solid 1px;
+          padding: 2px 4px;
+        }
+        .product_line{
+          .unit_price{
+            font-size: 0.5rem;
+            padding-left: 8px;
+          }
+        }
+      }
+    }
+
+    .bill_subtotal {
+
+      margin-bottom: 8px;
+      margin-top: 8px;
+      table{
+        font-size: 0.75rem;
+      }
+    }
+
+    #total{
+      table{
+        font-size: 0.75rem;
+      }
+
+    }
+    .qrcode {
+
+      .title {
+        width: 100%;
+        margin-top: 8px;
+        margin-bottom: 4px;
+      }
+
+      .row {
+        align-items: center;
+        -webkit-box-align: center;
+      }
+
+      .col-7 {
+        padding: 8px;
+
+      }
+
+      .col-5 {
+        padding: 4px;
+        font-size: 0.75rem;
+      }
+    }
+
+    .order-detail {
+      text-align: center;
+      font-size: 8px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+  }
+}

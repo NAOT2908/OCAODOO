@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <div t-name="smartbiz_stock.StockPicking" class="o_client_action h-100 flex-column">
+        <div class="o_move_header">
+            <div t-if="state.view === 'Move'">
+                <div class="o_header">
+                    <div class="navbar navbar-expand">
+                        <nav class="navbar-nav me-auto">
+                            <button t-on-click="exit" class="o_exit btn nav-link me-4">
+                                <i class="oi oi-chevron-left " />
+                            </button>
+
+                            <span class="o_title navbar-text" t-out="state.pickingName">NAME</span>
+                        </nav>
+                        <nav class="navbar-nav">
+                            <t t-if="state.view === 'Move'">
+                                <button class="o_search btn nav-link" t-on-click="openInput">
+                                    <i class="fa fa-search" />
+                                </button>
+                                <button class="o_show_information btn nav-link">
+                                    <i class="fa fa-info-circle" />
+                                </button>
+                                <button class="o_stock_mobile_barcode btn nav-link" t-on-click="openManualScanner">
+                                    <i class="fa fa-barcode" />
+                                </button>
+                                <button t-on-click="toggleBarcodeActions" class="o_barcode_actions btn nav-link">
+                                    <i class="fa fa-cog fa-spin" />
+                                </button>
+                            </t>
+                            <button t-else="" t-on-click="() => this.toggleBarcodeLines()" class="o_close btn nav-link">
+                                <i class="fa fa-times" />
+                            </button>
+                        </nav>
+
+                    </div>
+                </div>
+                <div class="p-1" t-if="state.input === 'openInput'">
+                    <input type="text" t-on-input="handleInputChange" t-att-value="state.inputValue" />
+                    <p t-if="state.inputValue">You entered:
+                        <t t-esc="state.inputValue" />
+                    </p>
+                </div>
+            </div>
+            <div t-if="state.view === 'Move_line'">
+                <div class="o_header">
+                    <div class="navbar navbar-expand">
+                        <nav class="navbar-nav me-auto">
+                            <button t-on-click="exit" class="o_exit btn nav-link me-4">
+                                <i class="oi oi-chevron-left " />
+                            </button>
+                            <span class="o_title navbar-text" t-out="state.pickingName">NAME</span>
+                        </nav>
+                        <nav class="navbar-nav">
+                            <t t-if="state.view === 'Move_line'">
+                                <button class="o_search btn nav-link" t-on-click="openInput">
+                                    <i class="fa fa-search" />
+                                </button>
+                                <button class="o_print btn nav-link">
+                                    <i class="fa fa-print" />
+                                </button>
+
+                                <button class="o_stock_mobile_barcode btn nav-link" t-on-click="openManualScanner">
+                                    <i class="fa fa-barcode" />
+                                </button>
+
+                            </t>
+                            <button  t-on-click="() => this.toggleBarcodeLines()"
+                            class="o_close btn nav-link">
+                                <i class="fa fa-times" />
+                            </button>
+                        </nav>
+
+                    </div>
+
+                </div>
+                <div class="p-1" t-if="state.input === 'openInput'">
+                    <input type="text" t-on-input="handleInputChange" t-att-value="state.inputValue" />
+                    <p t-if="state.inputValue">You entered:
+                        <t t-esc="state.inputValue" />
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="o_move_content">
+            <div t-if="state.view === 'Move'">
+                <t t-foreach="state.moves" t-as="move" t-key="move.id">
+                    <div t-on-click="() => this.select(move.id)" t-attf-class="{{selectedClass(move.id)}}"
+                        t-on-doubleclick="() => this.edit(move.id)"
+                    t-att-data-virtual-id="move.id" t-att-data-barcode="move.product_id.default_barcode" 
+                    >
+                        <div class="o_barcode_line_details flex-grow-1 flex-column flex-nowrap">
+                            <div name="source_location" title="Vị trí nguồn"><i class="fa fa-fw fa-sign-out"></i><span
+                                    class="o_line_source_location fst-italic text-muted"><span class="text-black"
+                                        t-out="move.location_name">A4.2</span></span></div>
+                            <div class="o_barcode_line_title"><i class="fa fa-fw fa-tags"></i><span
+                                    class="o_barcode_product_ref h5 fw-bold"
+                                    t-out="move.product_name">E08D93424E</span></div>
+                            <div><i class="fa fa-fw"></i><span class="product-label">
+                                    <t t-out="move.product_name" />
+                                </span></div>
+                            <!-- <div name="lot"><i class="fa fa-fw fa-barcode"></i><span class="o_line_lot_name"
+                                    t-out="move.lots">911-KHV</span>
+                            </div> -->
+                            <div name="quantity"><i class="fa fa-fw fa-cube"></i><span
+                                    class="o_barcode_scanner_qty "><span
+                                        class="qty-done d-inline-block text-start">
+                                        <t t-out="move.quantity" />
+                                    </span><span>/
+                                        <t t-out="move.product_uom_qty" /> 
+                                    </span></span><span class="o_line_uom" t-out="move.product_uom">Chiếc</span>
+                            </div>
+                            <div name="source_location" title="Vị trí đích"><i class="fa fa-fw fa-sign-in"></i><span
+                                    class="o_line_source_location fst-italic text-muted"><span class="text-black"
+                                        t-out="move.location_dest_name">A4.2</span></span></div>
+                        </div>
+                        <div class="o_line_buttons"><button class="o_line_button o_edit btn"
+                                t-on-click="() => this.edit(move.id)"><i
+                                    class="fa fa-2x fa-pencil"></i></button><span><button name="incrementButton"
+                                    class="o_line_button o_add_quantity btn btn-primary ms-2 ms-sm-4"
+                                    >+ <t t-out="move.quantity"></t></button></span>
+                        </div>
+                    </div>
+                </t>
+            </div>
+            <div t-if="state.view === 'Move_line'">
+                <div t-foreach="state.lines" t-as="line" t-key="line.id" class="text-center m-1 ">
+                    <t t-out="line.product_name"/>
+                </div>
+                <Move_line lines="state.lines"/>               
+            </div>
+        </div>
+        <div class="o_move_footer">
+            <div t-if="state.view === 'Move'">
+                <div class="app-footer">
+                    <div class=" row align-content-center p-1 ">
+                        <div class=" col-4">
+                            <button class=" btn btn-block btn-primary w-100 p-2" t-on-click="">
+                                + Sản phẩm
+                            </button>
+                        </div>
+                        <div class=" col-4">
+                            <button class=" btn btn-block btn-primary w-100 p-2" t-on-click="">
+                                In nhãn
+                            </button>
+                        </div>
+                        <div class=" col-4">
+                            <button class=" btn btn-block btn-primary w-100 p-2" t-on-click="">
+                                Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div t-if="state.view === 'Move_line'">
+                <div class="app-footer">
+                    <div class=" row align-content-center p-1 ">
+                        <div class=" col-4">
+                            <button class=" btn btn-block btn-primary w-100 p-2" t-on-click="">
+                                + Sản phẩm
+                            </button>
+                        </div>
+                        <div class=" col-4">
+                            <button class=" btn btn-block btn-primary w-100 p-2" t-on-click="">
+                                Đóng gói
+                            </button>
+                        </div>
+                        <div class=" col-4">
+                            <button class=" btn btn-block btn-primary w-100 p-2" t-on-click="">
+                                Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</templates>
