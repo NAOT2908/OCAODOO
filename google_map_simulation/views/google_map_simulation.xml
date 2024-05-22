@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<odoo>
-    <record model="ir.actions.client" id="action_google_map_simulation">
-        <field name="name">Google Maps</field>
-        <field name="tag">google_map_simulation.action_google_map_simulation</field>
-    </record>
-
-</odoo>

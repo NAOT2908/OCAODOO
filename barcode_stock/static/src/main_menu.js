@@ -48,16 +48,28 @@ export class AppsMenu extends Component {
     }
     this.notificationService.add(res.warning, { type: "danger" });
   }
-  async open_view(view_id) {
+  async openPickingType() {
+    var context = { search_default_to_do_transfers: 1 };
     const res = await this.rpc("/smartbiz/open_view", {
       name: "Kiểu điều chuyển",
       res_model: "stock.picking.type",
-      view_id: view_id,
+      view_id: "smartbiz_stock.stock_picking_type_kanban",
       view_mode: "kanban",
+      context: context,
     });
-    // console.log(res);
-
-    //return res
+    if (res) {
+      return this.actionService.doAction(res.action);
+    }
+  }
+  async openPickingBatch() {
+    var context = { search_default_to_do_transfers: 1 };
+    const res = await this.rpc("/smartbiz/open_view", {
+      name: "Điều chuyển loạt",
+      res_model: "stock.picking.batch",
+      view_id: "smartbiz_stock.stock_picking_batch_kanban",
+      view_mode: "kanban",
+      context: context,
+    });
     if (res) {
       return this.actionService.doAction(res.action);
     }
@@ -73,4 +85,4 @@ AppsMenu.props = {
 };
 AppsMenu.template = "MainMenu";
 
-registry.category("actions").add("stock_barcode_main_menu", AppsMenu);
+registry.category("actions").add("smartbiz_barcode_main_menu", AppsMenu);

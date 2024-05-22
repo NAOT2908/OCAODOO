@@ -4,10 +4,11 @@
 		<field name="name">available.quantities.wizard</field>
 		<field name="model">available.quantities.wizard</field>
 		<field name="arch" type="xml">
-			<form create="false" edit="false">
+			<form create="False" edit="False">
 				<group>
 					<field name="stock_product_id"/>
 				</group>
+				
 				<field name="stock_location_id"/>
 				<footer>
 					<button string="Cancel" class="btn-secondary" special="cancel" invisible="1"/> 
@@ -22,6 +23,8 @@
 		<field name="view_mode">form</field>
 		<field name="target">new</field>
 		<field name="view_id" ref="view_available_quantities_wizard"></field>
-
+		
 	</record>
+
+	
 </odoo>

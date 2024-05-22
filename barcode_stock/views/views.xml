@@ -379,12 +379,13 @@
     <field name="name">stock_picking_kanban</field>
     <field name="model">stock.picking</field>
     <field name="arch" type="xml">
-      <kanban string="Picking" js_class="stock_kanban_barcode" class="o_kanban_mobile"
-        sample="1">
+      <kanban string="Picking" js_class="stock_picking_kanban_barcode" class="o_kanban_mobile"
+        sample="1" default_order="priority desc, scheduled_date desc, id">
         <field name="name" />
         <field name="partner_id" />
         <field name="location_dest_id" />
         <field name="state" />
+        <field name="origin" />
         <field name="scheduled_date" />
         <field name="activity_state" />
         <field name="picking_type_id" />
@@ -409,10 +410,12 @@
               </div>
               <div class="o_kanban_record_body">
                 <field name="picking_properties" widget="properties" />
+                <field name="origin" />
               </div>
               <div class="o_kanban_record_bottom">
                 <div class="oe_kanban_bottom_left">
                   <t t-esc="record.partner_id.value" />
+
                   <field name="activity_ids" widget="kanban_activity" />
                   <field name="json_popover" nolabel="1" widget="stock_rescheduling_popover"
                     invisible="not json_popover" />
@@ -422,6 +425,49 @@
                     t-esc="record.scheduled_date.value and record.scheduled_date.value.split(' ')[0] or False" />
                   <field name="user_id" widget="many2one_avatar_user" invisible="not user_id"
                     readonly="state in ['cancel', 'done']" />
+                </div>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+  <record model="ir.ui.view" id="stock_picking_batch_kanban">
+    <field name="name">stock_picking_batch_kanban</field>
+    <field name="model">stock.picking.batch</field>
+    <field name="arch" type="xml">
+      <kanban string="Picking.Batch" js_class="stock_picking_kanban_barcode" class="o_kanban_mobile"
+        sample="1" default_order="id">
+        <field name="move_line_ids" />
+        <field name="company_id" invisible="1" />
+        <templates>
+          <t t-name="kanban-box">
+            <div t-attf-class="oe_kanban_global_click">
+              <div class="o_kanban_record_top">
+                <div class="o_kanban_record_headings">
+                  <strong class="o_kanban_record_title">
+                    <span>
+                      <field name="name" />
+                    </span>
+                  </strong>
+                  <div><t t-esc="record.move_line_ids.raw_value.length" /> Lines</div>
+                </div>
+                <field name="state" widget="label_selection"
+                  options="{'classes': {
+                                        'draft': 'default',
+                                        'in_progress': 'success',
+                                        'cancel': 'default',
+                                        'done': 'default'}}" />
+              </div>
+              <div class="o_kanban_record_bottom">
+                <div class="oe_kanban_bottom_left">
+                  <field name="picking_type_id" />
+                </div>
+                <div class="oe_kanban_bottom_right">
+                  <field name="scheduled_date" widget="date" readonly="state in ['cancel', 'done']" />
+                  <field name="user_id" widget="many2one_avatar_user"
+                    readonly="state not in ['draft', 'in_progress']" />
                 </div>
               </div>
             </div>
@@ -489,18 +535,21 @@
 
   <record model="ir.actions.client" id="stock_picking_client_action">
     <field name="name">Điều chuyển</field>
-    <field name="tag">smartbiz_picking_barcode</field>
-
+    <field name="tag">smartbiz_picking_detail_barcode</field>
+    <field name="res_model">stock.picking</field>
+    <!-- <field name="target">fullscreen</field> -->
   </record>
 
-  <record model="ir.actions.client" id="stock_move_line_barcode_client_action">
-    <field name="name">Chi tiết điều chuyển</field>
-    <field name="tag">stock_move_line_barcode</field>
+  <record model="ir.actions.client" id="stock_picking_batch_client_action">
+    <field name="name">Điều chuyển loạt</field>
+    <field name="tag">smartbiz_picking_detail_barcode</field>
+    <field name="res_model">stock.picking.batch</field>
+    <!-- <field name="target">fullscreen</field> -->
   </record>
 
   <record model="ir.actions.client" id="smartbiz_barcode_main_menu_action">
-    <field name="name">Stock Barcode</field>
-    <field name="tag">stock_barcode_main_menu</field>
+    <field name="name">SmartBiz Barcode</field>
+    <field name="tag">smartbiz_barcode_main_menu</field>
 
   </record>
 
@@ -671,12 +720,19 @@
     <field name="domain">[]</field>
     <field name="context">{}</field>
   </record>
+  <record model="ir.actions.act_window" id="stock_picking_batch_action">
+    <field name="name">Picking.Batch</field>
+    <field name="res_model">stock.picking.batch</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="domain">[]</field>
+    <field name="context">{}</field>
+  </record>
 
   <!-- Menu -->
 
   <!-- Top menu item -->
 
-  <menuitem name="Stock Barcode"
+  <menuitem name="SmartBiz Barcode"
     id="menu_smartbiz_barcode_7"
     action="smartbiz_barcode_main_menu_action"
     sequence="7"
@@ -699,7 +755,7 @@
     id="settings"
     sequence="7"
     parent="configuration"
-    action=""
+    action="action_res_config_settings_form"
   />
   <menuitem
     name="Nhập kho"
@@ -717,18 +773,18 @@
   />
 
   <!-- <record id="stock.stock_move_menu" model="ir.ui.menu">
-         <field name="groups_id" eval="[(6, 0,
-  [ref('smartbiz_stock.group_roles_inventory___basic_report_1'),])]"/>
-    </record>
+    <field name="groups_id"
+      eval="[(6, 0, [ref('smartbiz_stock.group_roles_inventory___basic_report_1'),])]" />
+  </record>
 
-    <record id="stock_account.menu_valuation" model="ir.ui.menu">
-         <field name="groups_id" eval="[(6, 0,
-  [ref('smartbiz_stock.group_roles_inventory___basic_report_1'),])]"/>
-    </record> -->
+  <record id="stock_account.menu_valuation" model="ir.ui.menu">
+    <field name="groups_id"
+      eval="[(6, 0, [ref('smartbiz_stock.group_roles_inventory___basic_report_1'),])]" />
+  </record> -->
 
   <!-- Menu item action -->
 
-  <!-- <menuitem name="Stock Report"
+  <menuitem name="Stock Report"
     id="smartbiz_stock_stock_report_menuitem"
     action="smartbiz_stock_stock_report_action"
     parent="stock.menu_warehouse_report"
@@ -745,6 +801,6 @@
     action="smartbiz_stock_transfer_request_type_action"
     parent="stock.menu_stock_config_settings"
     sequence="24"
-  /> -->
+  />
 
 </odoo>

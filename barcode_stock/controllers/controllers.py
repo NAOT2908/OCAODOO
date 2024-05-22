@@ -74,8 +74,8 @@ class StockBarcodeController(http.Controller):
     def open_view(self, name,res_model,view_id='',view_mode='form',domain='[]',context='{}'):
         if view_id != '':
             view_id = request.env.ref(view_id).id       
-        domain = json.loads(domain)
-        context = json.loads(context)
+        #domain = json.loads(domain)
+        #context = json.loads(context)
         
         action = {
             'type': 'ir.actions.act_window',       

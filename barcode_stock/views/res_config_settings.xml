@@ -6,9 +6,9 @@
         <field name="priority" eval="100"/>
         <field name="inherit_id" ref="base.res_config_settings_view_form" />
         <field name="arch" type="xml">
-        <xpath expr="//setting[@id='process_operations_barcodes']" position="inside">
+        <xpath expr="//setting[@id='process_operations_barcodes']" position="before">
             <div class="app_settings_block" data-string="Barcode" string="Barcode" data-key="smartbiz_stock" groups="base.group_user">
-                <h2>Barcode</h2>
+                <h2>Barcode SmartBiz</h2>
                 <div class="row mt16 o_settings_container" id="barcode_management">
                     <div id="use_collaborative_pad" class="col-12 col-lg-6 o_setting_box" title="">
                         <div class="o_setting_left_pane"  >

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api # type: ignore
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
@@ -60,22 +60,25 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
     def button_validate(self):
-      
       res = super(StockPicking, self).button_validate()
       for pk in self:
           self.update_picking_data(pk.move_ids)
-        
       return res
 
     def update_picking_data(self,moves):
         for move in moves:
             origin = move.picking_id.origin
+            partner_id = move.picking_id.partner_id
             data = {}
             move_dests = move.move_dest_ids
             for m in move_dests:
                 if origin != m.picking_id.origin and origin:
                     data['origin'] = origin
+                if partner_id != m.picking_id.partner_id and partner_id:
+                    data['partner_id'] = partner_id
                 m.picking_id.write(data)
                 self.update_picking_data(move_dests)
                 break
             break    
+
+

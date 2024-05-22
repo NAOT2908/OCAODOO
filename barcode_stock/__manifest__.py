@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': "Barcode Stock",
-    'summary': "Stock Customizations",
-    'description': "Stock Customizations",
-    'author': "Toan",
-    'website': "",
+    'name': "SmartBiz Barcode",
+    'summary': "SmartBiz Stock Customizations",
+    'description': "SmartBiz Stock Customizations",
+    'author': "SmartBiz",
+    'website': "https://www.sbiz.vn",
 
     # Categories can be used to filter modules in modules listing
+    'category': 'SmartBiz Apps',
     'license': 'Other proprietary',
     'version': '1.0',
 
@@ -19,7 +20,7 @@
 
     # always loaded
     'data': [
-        # 'security/securities.xml',
+        'security/securities.xml',
         'security/ir.model.access.csv',
         'views/views.xml',
         # 'report/report.xml',
@@ -31,9 +32,9 @@
 
     'assets': {
         'web.assets_backend': [
-              'barcode_stock/static/src/**/*.js',
-              'barcode_stock/static/src/**/*.scss',
-              'barcode_stock/static/src/**/*.xml',
+              'smartbiz_stock/static/src/**/*.js',
+              'smartbiz_stock/static/src/**/*.scss',
+              'smartbiz_stock/static/src/**/*.xml',
          ],
         'web.assets_qweb': [
          ],

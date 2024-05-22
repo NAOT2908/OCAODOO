@@ -9,4 +9,4 @@ export const stockBarcodeKanbanView = Object.assign({}, kanbanView, {
     Controller: StockBarcodeKanbanController,
     Renderer: StockBarcodeKanbanRenderer,
 });
-registry.category("views").add("stock_kanban_barcode", stockBarcodeKanbanView);
+registry.category("views").add("stock_picking_kanban_barcode", stockBarcodeKanbanView);

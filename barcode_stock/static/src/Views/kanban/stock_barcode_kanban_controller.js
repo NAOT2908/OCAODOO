@@ -15,20 +15,51 @@ export class StockBarcodeKanbanController extends KanbanController {
     }
 
     openRecord(record) {
-        console.log(record)
-        this.actionService.doAction('smartbiz_stock.stock_picking_client_action', {
-            additionalContext: { active_id: record.resId },
-        });
+        console.log({record,resModel:record.resModel})
+        if(record.resModel == 'stock.picking')
+        {
+            this.actionService.doAction('smartbiz_stock.stock_picking_client_action', {
+                additionalContext: { active_id: record.resId,resModel: record.resModel
+                 },
+            });
+        }
+        if(record.resModel == 'stock.picking.batch')
+        {
+            this.actionService.doAction('smartbiz_stock.stock_picking_batch_client_action', {
+                additionalContext: { active_id: record.resId,resModel: record.resModel
+                 },
+            });
+        }
     }
     
     async createRecord() {
-        const action = await this.model.orm.call(
-            'stock.picking',
-            'action_open_new_picking',
-            [], { context: this.props.context }
-        );
-        if (action) {
-            return this.actionService.doAction(action);
+        if (this.props.resModel === 'stock.picking')
+        {
+            const id = await this.model.orm.call(
+                'stock.picking',
+                'open_new_picking_barcode',
+                [], { context: this.props.context }
+            );
+            if (id) {
+                return this.actionService.doAction('smartbiz_stock.stock_picking_client_action', {
+                    additionalContext: { active_id: id,resModel: this.props.resModel
+                     },
+                });
+            }
+        }
+        if (this.props.resModel === 'stock.picking.batch')
+        {
+            const id = await this.model.orm.call(
+                'stock.picking',
+                'open_new_batch_picking_barcode',
+                [,], { context: this.props.context }
+            );
+            if (id) {
+                return this.actionService.doAction('smartbiz_stock.stock_picking_batch_client_action', {
+                    additionalContext: { active_id: id,resModel: this.props.resModel
+                     },
+                });
+            }
         }
         return super.createRecord(...arguments);
     }
@@ -47,7 +78,7 @@ export class StockBarcodeKanbanController extends KanbanController {
             return;
         }
         const kwargs = { barcode, context: this.props.context };
-        const res = await this.model.orm.call(this.props.resModel, 'filter_on_barcode', [], kwargs);
+        const res = await this.model.orm.call(this.props.resModel, 'picking_filter_on_barcode', [], kwargs);
         if (res.action) {
             this.actionService.doAction(res.action);
         } else if (res.warning) {

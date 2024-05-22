@@ -11,7 +11,7 @@
 
     """,
     'author': 'NAOT2908',
-    'website': 'https://www.browseinfo.com',
+    'website': '',
     "depends":["base",
                "sale_management",
                "sale",
@@ -24,7 +24,6 @@
 	       ],
     'license':'OPL-1',
     'installable': True,
-    'auto_install': False,
-    'live_test_url':'https://youtu.be/hJ591hfK7K4',
+    'auto_install': True,
     "images":['static/description/Warehouse-Product-Availability-SO-Banner.gif'],
 }

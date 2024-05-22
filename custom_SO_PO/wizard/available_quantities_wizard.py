@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _ # type: ignore
 
 class AvailableQuantitiesWizard(models.TransientModel):
     _name = 'available.quantities.wizard'
@@ -9,6 +9,7 @@ class AvailableQuantitiesWizard(models.TransientModel):
 
     stock_product_id = fields.Many2one("product.product", string="Product", readonly=True)
     stock_location_id = fields.Many2many("stock.quant")
+   
 
     @api.model
     def default_get(self, fields):
@@ -23,3 +24,4 @@ class AvailableQuantitiesWizard(models.TransientModel):
                 'stock_location_id' : [(6,0,product_details)]
                 }
         return res
+

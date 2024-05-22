@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- <data noupdate="0">
-
+    <data noupdate="0">
+<!-- Users -->
+<!-- Groups -->
    <record model="ir.module.category" id="security_category">
     <field name = "name">SmartBiz SMARTBIZ_STOCK</field>
     <field name = "description" >User Access level for SMARTBIZ_STOCK</field>
     <field name = "sequence" > 3 </field>
     </record>
-        <record model="res.groups" id="smartbiz_stock.group_roles_inventory___basic_report_1">
+        <!-- <record model="res.groups" id="smartbiz_stock.group_roles_inventory___basic_report_1">
             <field name="name">Inventory - Basic Report</field>
             <field name="type">roles</field>
             <field name="category_id" ref="security_category"/>
@@ -63,8 +64,9 @@
 
         <record model="res.groups" id="smartbiz_stock.group_roles_inventory___full_report_2">
             <field name="implied_ids" eval="[(6, 0, [ref('smartbiz_stock.group_roles_inventory___basic_report_1'),])]"/>
-        </record>
+        </record> -->
+        
+<!-- Record Rules -->
 
-
-    </data> -->
+    </data>
 </odoo>

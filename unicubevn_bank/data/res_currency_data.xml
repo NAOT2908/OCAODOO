@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data noupdate="1">
-        <!-- Currencies -->
-        <record id="USD" model="res.currency">
-            <field name="emv_code">USD</field>
-        </record>
-    </data>
-</odoo>

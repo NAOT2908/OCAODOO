@@ -273,16 +273,15 @@ class Stock_PickingType(models.Model):
     _inherit = ['stock.picking.type']
     name = fields.Char(store='True')
 
-    def open_picking_kanban(self):       
 
-        view_id = self.env.ref('smartbiz_stock.stock_picking_kanban').id       
-
+    def open_picking_kanban(self):
+        view_id = self.env.ref('smartbiz_stock.stock_picking_kanban').id
         context = {
             'search_default_picking_type_id': [self.id],
+            'search_default_to_do_transfers':1,
             'default_picking_type_id': self.id,
             'default_company_id': self.company_id.id,
         }
-        
         action = {
             'type': 'ir.actions.act_window',       
             'views':[(view_id,'kanban')],
@@ -291,8 +290,6 @@ class Stock_PickingType(models.Model):
             'target': 'current',
             'context':context
         }
-        
-
         return action
 
     @api.model
@@ -418,119 +415,6 @@ class Stock_Picking(models.Model):
     picking_type_id = fields.Many2one('stock.picking.type', store='True')
     transfer_request_id = fields.Many2one('smartbiz_stock.transfer_request', string='Transfer Request')
 
-    def _get_fields(self,model):
-        if model == 'mrp.production':
-            return ['name','state','product_id','product_uom_id','product_uom_qty','qty_produced','qty_producing','date_start','date_deadline','date_finished','company_id']
-        if model == 'stock.move':
-            return ['state','date','date_deadline','product_id','product_uom','product_uom_qty','quantity','product_qty','location_id','location_dest_id']
-        if model == 'stock.move.line':
-            return ['state','move_id','date','product_id','product_uom_id','quantity','location_id','location_dest_id','package_id','result_package_id','lot_id']
-        if model == 'product.product':
-            return ['barcode', 'default_code', 'tracking', 'display_name', 'uom_id']
-        if model == 'stock.location':
-            return ['display_name', 'barcode', 'parent_path']
-        if model == 'stock.package.type':
-            return ['barcode', 'name']
-        if model == 'stock.quant.package':
-            return ['name','location_id']
-        if model == 'stock.lot':
-            return ['name', 'ref', 'product_id','expiration_date','create_date','product_qty']
-        if model == 'uom.uom':
-            return ['name','category_id','factor','rounding',]
-        if model == 'stock.quant':
-            return ['product_id','location_id','inventory_date','inventory_quantity','inventory_quantity_set','quantity','product_uom_id','lot_id','package_id','owner_id','inventory_diff_quantity','user_id',]
-        return []
-        
-    def get_data(self,picking_id):
-        picking = self.search([['id','=',picking_id]],limit=1)
-        moves = picking.move_ids        
-        products = moves.product_id      
-        uoms = moves.product_uom      
-        move_lines = moves.move_line_ids
-        packages   = move_lines.package_id | move_lines.result_package_id
-        lots = move_lines.lot_id|self.env['stock.lot'].search( [('company_id', '=', picking.company_id.id), ('product_id', 'in', products.ids)])
-        locations = move_lines.location_id | move_lines.location_dest_id | moves.location_id | moves.location_dest_id  
-        mls = []
-        mvs = []
-        for ml in move_lines:
-            mls.append({
-            'id':ml.id,
-            'move_id':ml.move_id.id,
-            'state': ml.state,
-            'date': ml.date,
-            'product_id' :ml.product_id.id,
-            'product_name' :ml.product_id.display_name,
-            'product_barcode': ml.product_id.barcode,
-            'product_tracking': ml.product_id.tracking,
-            'product_uom': ml.product_id.uom_id.name,
-            'quantity':ml.quantity,
-            # 'qty_done':ml.qty_done,
-            'lot_id':ml.lot_id.id,
-            'lot_name':ml.lot_id.name,
-            'location_id':ml.location_id.id,
-            'location_name':ml.location_id.name,
-            'location_barcode':ml.location_id.barcode,
-            'location_dest_id':ml.location_dest_id.id,
-            'location_dest_name':ml.location_dest_id.name,
-            'location_dest_barcode':ml.location_dest_id.barcode,
-            'result_package_id':ml.result_package_id.id,
-            'result_package_name':ml.result_package_id.name,
-            'package_id':ml.package_id.id,
-            'package_name':ml.package_id.name
-        })
-        for mv in moves:
-            mvs.append({
-            'id':mv.id,
-            'picking_id':mv.picking_id.id,
-            'state': mv.state,
-            'date': mv.date,
-            'product_id' :mv.product_id.id,
-            'product_name' :mv.product_id.display_name,
-            'product_barcode': mv.product_id.barcode,
-            'product_tracking': mv.product_id.tracking,
-            'product_uom': mv.product_id.uom_id.name,
-            'product_uom_qty': mv.product_uom_qty,
-            'quantity':mv.quantity,
-            'product_qty':mv.product_qty,       
-            'location_id':mv.location_id.id,
-            'location_name':mv.location_id.name,
-            'location_barcode':mv.location_id.barcode,
-            'location_dest_id':mv.location_dest_id.id,
-            'location_dest_name':mv.location_dest_id.name,
-            'location_dest_barcode':mv.location_dest_id.barcode,
-        })
-
-        data = {           
-            'moves': mvs,         
-            'move_lines': mls,
-            'packages': packages.read(picking._get_fields('stock.quant.package')),
-            'lots': lots.read(picking._get_fields('stock.lot')),
-            'locations': locations.read(picking._get_fields('stock.location')),
-            'products': products.read(picking._get_fields('product.product')),
-            'uoms':uoms.read(picking._get_fields('uom.uom')),
-            'company_id': picking.company_id.id,          
-            'picking_id':picking.id,
-            'picking_name':picking.name,
-        }
-        return data 
-        
-    # def open_picking_client_action(self):
-    #     """ method to open the form view of the current record
-    #     from a button on the kanban view
-    #     """
-    #     self.ensure_one()
-    #     action = self.env["ir.actions.actions"]._for_xml_id("smartbiz_stock.stock_picking_client_action")
-    #     action = dict(action, target='fullscreen')
-    #     action['context'] = {'active_id': self.id,'resId':self.id}
-    #     return action
-        
-    # def get_picking_data_(self):
-        
-    #     self.ensure_one()
-    #     action = self.env["ir.actions.actions"]._for_xml_id("smartbiz_stock.stock_picking_client_action")
-    #     action = dict(action, target='fullscreen')
-    #     action['context'] = {'active_id': self.id}
-    #     return action
 
     @api.depends('picking_type_id')
     def _compute_warehouse_id(self):
@@ -548,6 +432,385 @@ class Stock_Picking(models.Model):
                 for move in pk.move_ids:
                     move.write({'group_id':group_id})
         return super().action_confirm()
+
+    @api.model
+    def picking_filter_on_barcode(self, barcode):
+        """ Searches ready pickings for the scanned product/package/lot.
+        """
+        barcode_type = None
+        nomenclature = self.env.company.nomenclature_id
+        if nomenclature.is_gs1_nomenclature:
+            parsed_results = nomenclature.parse_barcode(barcode)
+            if parsed_results:
+                # filter with the last feasible rule
+                for result in parsed_results[::-1]:
+                    if result['rule'].type in ('product', 'package', 'lot'):
+                        barcode_type = result['rule'].type
+                        break
+
+        active_id = self.env.context.get('active_id')
+        picking_type = self.env['stock.picking.type'].browse(self.env.context.get('active_id'))
+        base_domain = [
+            ('picking_type_id', '=', picking_type.id),
+            ('state', 'not in', ['cancel', 'done', 'draft'])
+        ]
+
+        picking_nums = 0
+        additional_context = {'active_id': active_id}
+        if barcode_type == 'product' or not barcode_type:
+            product = self.env['product.product'].search([('barcode', '=', barcode)], limit=1)
+            if product:
+                picking_nums = self.search_count(base_domain + [('product_id', '=', product.id)])
+                additional_context['search_default_product_id'] = product.id
+        if self.env.user.has_group('stock.group_tracking_lot') and (barcode_type == 'package' or (not barcode_type and not picking_nums)):
+            package = self.env['stock.quant.package'].search([('name', '=', barcode)], limit=1)
+            if package:
+                pack_domain = ['|', ('move_line_ids.package_id', '=', package.id), ('move_line_ids.result_package_id', '=', package.id)]
+                picking_nums = self.search_count(base_domain + pack_domain)
+                additional_context['search_default_move_line_ids'] = barcode
+        if self.env.user.has_group('stock.group_production_lot') and (barcode_type == 'lot' or (not barcode_type and not picking_nums)):
+            lot = self.env['stock.lot'].search([
+                ('name', '=', barcode),
+                ('company_id', '=', picking_type.company_id.id),
+            ], limit=1)
+            if lot:
+                lot_domain = [('move_line_ids.lot_id', '=', lot.id)]
+                picking_nums = self.search_count(base_domain + lot_domain)
+                additional_context['search_default_lot_id'] = lot.id
+        if not barcode_type and not picking_nums:  # Nothing found yet, try to find picking by name.
+            picking_nums = self.search_count(base_domain + [('name', '=', barcode)])
+            additional_context['search_default_name'] = barcode
+
+        if not picking_nums:
+            if barcode_type:
+                return {
+                    'warning': {
+                        'message': _("No %(picking_type)s ready for this %(barcode_type)s", picking_type=picking_type.name, barcode_type=barcode_type),
+                    }
+                }
+            return {
+                'warning': {
+                    'title': _('No product, lot or package found for barcode %s', barcode),
+                    'message': _('Scan a product, a lot/serial number or a package to filter the transfers.'),
+                }
+            }
+
+        action = picking_type.open_picking_kanban()
+        action['context'].update(additional_context)
+        return {'action': action}
+
+    @api.model
+    def open_new_picking_barcode(self):
+        """ Creates a new picking of the current picking type and open it.
+
+        :return: the action used to open the picking, or false
+        :rtype: dict
+        """
+        context = self.env.context
+        if context.get('active_model') == 'stock.picking.type':
+            picking_type = self.env['stock.picking.type'].browse(context.get('active_id'))
+            if picking_type.exists():
+                new_picking = self.create_new_picking(picking_type)
+                return new_picking.id
+        return False
+
+    @api.model
+    def create_new_picking(self, picking_type):
+        """ Create a new picking for the given picking type.
+
+        :param picking_type:
+        :type picking_type: :class:`~odoo.addons.stock.models.stock_picking.PickingType`
+        :return: a new picking
+        :rtype: :class:`~odoo.addons.stock.models.stock_picking.Picking`
+        """
+        # Find source and destination Locations
+        location_dest_id, location_id = picking_type.warehouse_id._get_partner_locations()
+        if picking_type.default_location_src_id:
+            location_id = picking_type.default_location_src_id
+        if picking_type.default_location_dest_id:
+            location_dest_id = picking_type.default_location_dest_id
+
+        # Create and confirm the picking
+        return self.env['stock.picking'].create({
+            'user_id': False,
+            'picking_type_id': picking_type.id,
+            'location_id': location_id.id,
+            'location_dest_id': location_dest_id.id,
+        })
+
+    def open_new_batch_picking_barcode(self):
+        picking_batch = self.env['stock.picking.batch'].create({})
+        return picking_batch.id
+
+    def update_batch_picking(self,picking_id,values,batch_id):
+        batch_id = self.env['stock.picking.batch'].browse(batch_id)
+        batch_id.write(values)
+        return self.get_data(picking_id,batch_id.id)
+
+    def get_barcode_data(self,barcode,filters,barcodeType):
+        if barcodeType:
+            if barcodeType == 'lots':
+                record = self.env['stock.lot'].search_read([('name','=',barcode),('product_id','=',filters['product_id'])],limit=1,
+                                                           fields=self._get_fields('stock.lot'))
+            elif barcodeType == 'products':
+                record = self.env['product.product'].search_read([('barcode','=',barcode)],limit=1,
+                                                           fields=self._get_fields('product.product'))
+            elif barcodeType == 'locations':
+                record = self.env['stock.location'].search_read([('barcode','=',barcode)],limit=1,
+                                                           fields=self._get_fields('stock.location'))
+            elif barcodeType == 'packages':
+                record = self.env['stock.quant.package'].search([('name','=',barcode)],limit=1)
+                if record:
+                    prods = []
+                    for quant in record.quant_ids:
+                        product_id = quant.product_id.id
+                        product_uom_id = quant.product_id.uom_id.id
+                        location_id = quant.location_id.id
+                        quantity = quant.quantity
+                        lot_id = quant.lot_id.id
+                        prods.append(
+                            {'product_id': product_id, 'location_id': location_id, 'quantity': quantity, 'lot_id': lot_id,'product_uom_id':product_uom_id})
+                    record = [{'id': record.id, 'name': record.name, 'location': record.location_id.id, 'products': prods}]
+            if record:
+                return {'barcode':barcode,'match':True,'barcodeType':barcodeType,'record':record[0],'fromCache':False}
+        else:
+            if filters:
+                record = self.env['stock.lot'].search_read([('name', '=', barcode), ('product_id', '=', filters['product_id'])],
+                                                 limit=1, fields=self._get_fields('stock.lot'))
+                if record:
+                    return {'barcode':barcode,'match':True,'barcodeType':'lots','record':record[0],'fromCache':False}
+            record = self.env['product.product'].search_read([('barcode', '=', barcode)], limit=1,
+                                                           fields=self._get_fields('product.product'))
+            if record:
+                return {'barcode': barcode, 'match': True, 'barcodeType': 'products', 'record': record[0],'fromCache':False}
+
+            record = self.env['stock.location'].search_read([('barcode', '=', barcode)], limit=1,
+                                                           fields=self._get_fields('stock.location'))
+            if record:
+                return {'barcode': barcode, 'match': True, 'barcodeType': 'locations', 'record': record[0],'fromCache':False}
+
+            record = self.env['stock.quant.package'].search([('name', '=', barcode)], limit=1)
+            if record:
+                prods = []
+                for quant in record.quant_ids:
+                    product_id = quant.product_id.id
+                    product_uom_id = quant.product_id.uom_id.id
+                    location_id = quant.location_id.id
+                    quantity = quant.quantity
+                    lot_id = quant.lot_id.id
+                    prods.append(
+                        {'product_id': product_id, 'location_id': location_id, 'quantity': quantity, 'lot_id': lot_id,'product_uom_id':product_uom_id})
+                record = {'id': record.id, 'name': record.name, 'location': record.location_id.id, 'products': prods}
+                return {'barcode': barcode, 'match': True, 'barcodeType': 'packages', 'record': record,'fromCache':False}
+        return {'barcode': barcode, 'match': False, 'barcodeType': barcodeType, 'record': False,'fromCache':False}
+
+    def _get_fields(self,model):
+        if model == 'mrp.production':
+            return ['name','state','product_id','product_uom_id','product_uom_qty','qty_produced','qty_producing','date_start','date_deadline','date_finished','company_id']
+        if model == 'stock.move':
+            return ['state','date','date_deadline','product_id','product_uom','product_uom_qty','quantity','product_qty','location_id','location_dest_id']
+        if model == 'stock.move.line':
+            return ['state','move_id','date','product_id','product_uom_id','quantity','qty_done','location_id','location_dest_id','package_id','result_package_id','lot_id']
+        if model == 'product.product':
+            return ['barcode', 'default_code', 'tracking', 'display_name', 'uom_id']
+        if model == 'stock.location':
+            return ['display_name', 'barcode', 'parent_path']
+        if model == 'stock.package.type':
+            return ['barcode', 'name']
+        if model == 'stock.quant.package':
+            return ['name','location_id','quant_ids']
+        if model == 'stock.lot':
+            return ['name', 'ref', 'product_id','expiration_date','create_date','product_qty']
+        if model == 'uom.uom':
+            return ['name','category_id','factor','rounding',]
+        if model == 'stock.quant':
+            return ['product_id','location_id','inventory_date','inventory_quantity','inventory_quantity_set','quantity','product_uom_id','lot_id','package_id','owner_id','inventory_diff_quantity','user_id',]
+        return []
+        
+    def get_data(self,picking_id,batch_id=False):
+        if batch_id:
+            batch_id = self.env['stock.picking.batch'].browse(batch_id)
+            picking = batch_id.picking_ids
+        else:
+            picking = self.search([['id','=',picking_id]],limit=1)
+        moves = picking.move_ids        
+        products = moves.product_id      
+        uoms = moves.product_uom      
+        move_lines = moves.move_line_ids
+        packages = move_lines.package_id | move_lines.result_package_id
+        lots = move_lines.lot_id|self.env['stock.lot'].search( [('company_id', '=', picking.company_id.id), ('product_id', 'in', products.ids)])
+        source_locations = self.env['stock.location'].search([('id', 'child_of', picking.location_id.ids)])
+        destination_locations = self.env['stock.location'].search([('id', 'child_of', picking.location_dest_id.ids)])
+        locations = move_lines.location_id | move_lines.location_dest_id | moves.location_id | moves.location_dest_id  | source_locations |destination_locations
+        mls = []
+        mvs = []
+        for ml in move_lines:
+            mls.append({
+            'id':ml.id,
+            'move_id':ml.move_id.id,
+            'picking_id': ml.picking_id.id,
+            'picking_name': ml.picking_id.name,
+            'picking_type_code': ml.picking_id.picking_type_id.code or '',
+            'state': ml.state,
+            'date': ml.date,
+            'product_id' :ml.product_id.id,
+            'product_name' :ml.product_id.display_name or '',
+            'product_barcode': ml.product_id.barcode or '',
+            'product_tracking': ml.product_id.tracking,
+            'product_uom': ml.product_id.uom_id.name or '',
+            'product_uom_id': ml.product_id.uom_id.id,
+            'quantity':ml.quantity,
+            'lot_id':ml.lot_id.id,
+            'lot_name':ml.lot_name or ml.lot_id.name,
+            'location_id':ml.location_id.id,
+            'location_name':ml.location_id.display_name or '',
+            'location_barcode':ml.location_id.barcode or '',
+            'location_dest_id':ml.location_dest_id.id,
+            'location_dest_name':ml.location_dest_id.display_name or '',
+            'location_dest_barcode':ml.location_dest_id.barcode or '',
+            'result_package_id':ml.result_package_id.id,
+            'result_package_name':ml.result_package_id.name or '',
+            'package_id':ml.package_id.id,
+            'package_name':ml.package_id.name or '',
+            'picked':ml.picked or False,
+            'batch_picking_type_id': batch_id.picking_type_id.id if batch_id else False
+        })
+        for mv in moves:
+            picked = all(line.picked for line in mv.move_line_ids)
+            mvs.append({
+            'id':mv.id,
+            'picking_id': mv.picking_id.id,
+            'picking_name': mv.picking_id.name,
+            'picking_type_code': mv.picking_id.picking_type_id.code or '',
+            'state': mv.state,
+            'date': mv.date,
+            'product_id' :mv.product_id.id,
+            'product_name' :mv.product_id.display_name or '',
+            'product_barcode': mv.product_id.barcode or '',
+            'product_tracking': mv.product_id.tracking,
+            'product_uom': mv.product_id.uom_id.name or '',
+            'product_uom_id': mv.product_id.uom_id.id,
+            'product_uom_qty': mv.product_uom_qty,
+            'quantity':mv.quantity,
+            'product_qty':mv.product_qty,       
+            'location_id':mv.location_id.id,
+            'location_name':mv.location_id.display_name or '',
+            'location_barcode':mv.location_id.barcode or '',
+            'location_dest_id':mv.location_dest_id.id,
+            'location_dest_name':mv.location_dest_id.display_name or '',
+            'location_dest_barcode':mv.location_dest_id.barcode or '',
+            'picked': mv.picked or False,
+            'all_lines_picked':picked
+
+        })
+        packs = []
+        for pack in packages:
+            prods = []
+            for quant in pack.quant_ids:
+                product_id = quant.product_id.id
+                product_uom_id = quant.product_id.uom_id.id
+                location_id = quant.location_id.id
+                quantity = quant.quantity
+                lot_id = quant.lot_id.id
+                prods.append({'product_id':product_id,'location_id':location_id,'quantity':quantity,'lot_id':lot_id,'product_uom_id':product_uom_id})
+            packs.append({'id':pack.id,'name':pack.name,'location':pack.location_id.id,'products':prods})
+        data = {           
+            'moves': mvs,         
+            'move_lines': mls,
+            'packages': packs,
+            'lots': lots.read(picking._get_fields('stock.lot')),
+            'locations': locations.read(picking._get_fields('stock.location')),
+            'products': products.read(picking._get_fields('product.product')),
+            'uoms':uoms.read(picking._get_fields('uom.uom')),
+            'company_id': picking.company_id.id,
+            'partner_id':picking.partner_id.id,
+            'partner_name':picking.partner_id.name,
+            'user_id':picking.user_id.id,
+            'user_name': picking.user_id.name,
+            # 'note' : picking.note ,
+            'location_id':picking.location_id.id,
+            'location_dest_id': picking.location_dest_id.id,
+            'picking_type_code': batch_id.picking_type_id.code if batch_id else picking.picking_type_id.code,
+            'state': batch_id.state if batch_id else picking.state,
+            'name': batch_id.name if batch_id else picking.name,
+        }
+        return data
+    def create_move(self,picking_id,values,batch_id=False):
+        move = self.env['stock.move'].create(values)
+        data = self.get_data(picking_id,batch_id)
+        return {'move_id':move.id,'data':data}
+
+    def save_data(self,picking_id,data,batch_id=False):
+        quantity = float(data['quantity'])
+        package_id = data['package_id'] if 'package_id' in data.keys() else False
+        result_package_id = data['result_package_id'] if 'result_package_id' in data.keys()  else False
+
+
+        if not data['lot_id'] and data['lot_name']:
+            lot_id = self.env['stock.lot'].search([('name','=',data['lot_name']),(['product_id','=',data['product_id']])],limit=1)
+            if lot_id:
+                data['lot_id'] = lot_id.id
+            else:
+                data['lot_id'] = self.env['stock.lot'].create({'name':data['lot_name'],'product_id':data['product_id']}).id
+
+        update = {'quantity': quantity, 'location_id': data['location_id'],
+             'location_dest_id': data['location_dest_id'], 'lot_id': data['lot_id'],'lot_name': data['lot_name'],
+             'package_id':package_id,'result_package_id':result_package_id,'picked':True}
+        create = { 'product_id': data['product_id'], 'product_uom_id': data['product_uom_id'],
+             'quantity': quantity, 'location_id': data['location_id'],'picking_id':data['picking_id'],
+             'location_dest_id': data['location_dest_id'], 'lot_id': data['lot_id'], 'lot_name': data['lot_name'],
+             'package_id':package_id,'result_package_id':result_package_id,'picked':True}
+
+        if data['id']:
+            self.env['stock.move.line'].browse(data['id']).write(update)
+        else:
+            self.env['stock.move.line'].create(create)
+        return self.get_data(picking_id,batch_id)
+
+    def create_pack(self,picking_id,data,package_name,batch_id=False):
+        if package_name:
+            package = self.env['stock.quant.package'].search([('name','=',package_name)],limit=1)
+            if package:
+                package_id = package.id
+            else:
+                package_id = self.env['stock.quant.package'].create({'name':package_name})
+        else:
+            package_id = self.env['stock.quant.package'].create({})
+
+        data['result_package_id'] = package_id.id
+        return self.save_data(picking_id,data,batch_id)
+
+    def delete_move_line(self,picking_id,move_line_id,batch_id=False):
+        self.env['stock.move.line'].browse(move_line_id).unlink()
+        return self.get_data(picking_id,batch_id)
+
+    def delete_move(self,picking_id,move_id,batch_id=False):
+        self.env['stock.move'].browse(move_id).unlink()
+        return self.get_data(picking_id,batch_id)
+
+    def done_move_line(self,picking_id,move_line_id,batch_id=False):
+        self.env['stock.move.line'].browse(move_line_id)._action_done()
+        return self.get_data(picking_id,batch_id)
+
+    def done_move(self,picking_id,move_id,batch_id=False):
+        self.env['stock.move'].browse(move_id)._action_done()
+        return self.get_data(picking_id,batch_id)
+
+    def barcode_action_done(self,picking_id,batch_id=False):
+        if batch_id:
+            self.env['stock.picking.batch'].browse(batch_id).action_done()
+        else:
+            self.browse(picking_id).button_validate()
+        return self.get_data(picking_id,batch_id)
+
+    def print_line(self,move_line_id):
+        line = self.env['stock.move.line'].browse(move_line_id)
+        line.print_label()
+    def cancel_picking(self,picking_id):
+        self.browse(picking_id).action_cancel()
+        return self.get_data(picking_id)
+
+
 
     @api.model
     def check_access_rights(self, operation, raise_exception=True):
@@ -656,64 +919,68 @@ class smartbiz_stock_TransferRequest(models.Model):
     def action_draft_create_order(self):
         Picking = self.env['stock.picking']
         Move = self.env['stock.move']
-        pickings = {}       
-        for trl in self.transfer_request_line_ids:
-            default_picking_type = self._get_default_picking_type(trl.product_id)
-            temps = []
-            for trtd in self.transfer_request_type_id.transfer_request_type_detail_ids:
-                picking_type = trtd.picking_type_id
-                sequence = trtd.sequence
-                location_src = picking_type.default_location_src_id
-                location_dest = picking_type.default_location_dest_id
-                quantity = trl.quantity
-                quants = self.env['stock.quant'].search([('location_id','child_of',location_src.id),('product_id','=',trl.product_id.id),('lot_id','in',trl.lots_ids.ids)])
-                onhand_quantity = sum(quants.mapped('quantity'))
-                temps.append({
-                    'product': trl.product_id,
-                    'quantity': quantity,
-                    'onhand_quantity': onhand_quantity,
-                    'lots_ids': trl.lots_ids.ids,
-                    'picking_type': picking_type,
-                    'default_picking_type': default_picking_type,
-                    'location_src': location_src,
-                    'location_dest': location_dest,
-                    'sequence':sequence,
-                    'transfer_request_id':self.id,
-                    'transfer_request_line_id':trl.id
-                })
-            item = self._find_record(temps)
-            key = item['picking_type'].id
-            if key not in pickings:
-                pickings[key] = []
-            pickings[key].append(item)
-            
-        for picking_type_id, products in pickings.items():
-            picking = Picking.create({
-                'picking_type_id': picking_type_id,
-                'location_id': products[0]['location_src'].id,
-                'location_dest_id': products[0]['location_dest'].id,
-                'transfer_request_id': products[0]['transfer_request_id'],
-                # Thêm các trường khác như partner_id nếu cần
-            })
-
-            for product in products:
-                Move.create({
-                    'name': product['product'].display_name,
-                    'product_id': product['product'].id,
-                    'product_uom_qty': product['quantity'],
-                    'product_uom': product['product'].uom_id.id,
-                    'picking_id': picking.id,
-                    'location_id': product['location_src'].id,
-                    'location_dest_id': product['location_dest'].id,
-                    'transfer_request_line_id': product['transfer_request_line_id'],
-                    'lots': product['lots_ids'],
-                    # Có thể cần thêm các trường khác tùy thuộc vào logic cụ thể
+        
+        for record in self.filtered(lambda m: m.state != 'done'):
+            pickings = {}
+            for trl in record.transfer_request_line_ids:
+                default_picking_type = record._get_default_picking_type(trl.product_id)
+                temps = []
+                for trtd in record.transfer_request_type_id.transfer_request_type_detail_ids:
+                    picking_type = trtd.picking_type_id
+                    sequence = trtd.sequence
+                    location_src = picking_type.default_location_src_id
+                    location_dest = picking_type.default_location_dest_id
+                    quantity = trl.quantity
+                    quants = record.env['stock.quant'].search([('location_id','child_of',location_src.id),('product_id','=',trl.product_id.id),('lot_id','in',trl.lots_ids.ids)])
+                    onhand_quantity = sum(quants.mapped('quantity'))
+                    temps.append({
+                        'product': trl.product_id,
+                        'origin':record.name,
+                        'quantity': quantity,
+                        'onhand_quantity': onhand_quantity,
+                        'lots_ids': trl.lots_ids.ids,
+                        'picking_type': picking_type,
+                        'default_picking_type': default_picking_type,
+                        'location_src': location_src,
+                        'location_dest': location_dest,
+                        'sequence':sequence,
+                        'transfer_request_id':record.id,
+                        'transfer_request_line_id':trl.id
+                    })
+                item = record._find_record(temps)
+                key = item['picking_type'].id
+                if key not in pickings:
+                    pickings[key] = []
+                pickings[key].append(item)
+                
+            for picking_type_id, products in pickings.items():
+                picking = Picking.create({
+                    'picking_type_id': picking_type_id,
+                    'location_id': products[0]['location_src'].id,
+                    'location_dest_id': products[0]['location_dest'].id,
+                    'transfer_request_id': products[0]['transfer_request_id'],
+                    'origin': products[0]['origin'],
+                    # Thêm các trường khác như partner_id nếu cần
                 })
 
-            picking.action_confirm()
-            #picking.action_assign()
+                for product in products:
+                    Move.create({
+                        'name': product['product'].display_name,
+                        'product_id': product['product'].id,
+                        'product_uom_qty': product['quantity'],
+                        'product_uom': product['product'].uom_id.id,
+                        'picking_id': picking.id,
+                        'location_id': product['location_src'].id,
+                        'location_dest_id': product['location_dest'].id,
+                        'transfer_request_line_id': product['transfer_request_line_id'],
+                        'lots': product['lots_ids'],
+                        # Có thể cần thêm các trường khác tùy thuộc vào logic cụ thể
+                    })
 
-        self.write({'state':'done'})
+                picking.action_confirm()
+                #picking.action_assign()
+
+            record.write({'state':'done'})
 
         
         
@@ -779,5 +1046,10 @@ class smartbiz_stock_TransferRequestTypeDetail(models.Model):
     sequence = fields.Integer(string='Sequence')
     picking_type_id = fields.Many2one('stock.picking.type', string='Picking Type')
     transfer_request_type_id = fields.Many2one('smartbiz_stock.transfer_request_type', string='Transfer Request Type')
+
+
+class Stock_PickingBatch(models.Model):
+    _inherit = ['stock.picking.batch']
+    name = fields.Char(store='True')
 
 

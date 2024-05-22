@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-unicubevn_bank.access_ipn_log,access_ipn_log,unicubevn_bank.model_ipn_log,unicubevn_bank.group_ipn,1,1,1,1

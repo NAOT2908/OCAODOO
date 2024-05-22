@@ -32,6 +32,9 @@ export class StockBarcodeKanbanRenderer extends KanbanRenderer {
             );
         }
     }
+  
 
 }
+
+
 StockBarcodeKanbanRenderer.template = 'smartbiz_stock.KanbanRenderer';
