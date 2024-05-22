@@ -3,7 +3,6 @@
 {
     'name': "Advanced Excel Reports",
     "version": "17.0.1.0.0",
-    "author": "NĐToàn",
     "category": "Sale,Accounting,Warehouse",
     "summary": """For printing excel reports of multiple records""",
     "description": "Print the excel report of the sale,invoice,picking"
