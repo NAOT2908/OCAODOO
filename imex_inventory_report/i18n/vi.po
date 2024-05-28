@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+
+#. module: imex_inventory_report
+ model:ir.model.fields,field_description:IMEX_INVENTORY_REPORT.field_IMEX_INVENTORY_REPORT_product
+msgid "# Product"
+msgstr "# Sản phẩm"
+
+#. module: imex_inventory_report
+ model:ir.model.fields,field_description:IMEX_INVENTORY_REPORT.field_IMEX_INVENTORY_REPORT_uom
+msgid "# UoM"
+msgstr "# Đơn vị tính"
+
+#. module: imex_inventory_report
+ model:ir.model.fields,field_description:IMEX_INVENTORY_REPORT.field_IMEX_INVENTORY_REPORT_category
+msgid "# Category"
+msgstr "# Danh mục sản phẩm"
+
+#. module: imex_inventory_report
+ model:ir.model.fields,field_description:IMEX_INVENTORY_REPORT.field_IMEX_INVENTORY_REPORT_initial
+msgid "# Initial"
+msgstr "# Ban đầu"
+
+#. module: imex_inventory_report
+ model:imex.inventory.report.wizard,field_description:IMEX_INVENTORY_REPORT.field_IMEX_INVENTORY_REPORT_product
+msgid "# location_id"
+msgstr "# Vị trí"
+
+

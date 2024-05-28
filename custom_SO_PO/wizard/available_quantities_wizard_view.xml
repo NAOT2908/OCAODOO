@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+	<!-- <record id="view_available_quantities_search" model="ir.ui.view">
+        <field name="name">available.quantities.wizard.search</field>
+        <field name="model">available.quantities.wizard</field>
+        <field name="arch" type="xml">
+            <search string="Imex Inventory Report Search">
+                <field name="stock_product_id" string="Product"/>
+                <field name="stock_location_id" string="Location"/>
+                <separator/>
+               
+                <separator/>
+              
+                <group expand="0" string="Group By">
+                    <filter string="Product" name="stock_product_id" domain="[]" context="{'group_by': 'stock_product_id'}"/>
+                    <filter string="Location" name="stock_location_id" domain="[]" context="{'group_by': 'stock_location_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record> -->
 	<record id="view_available_quantities_wizard" model="ir.ui.view">
 		<field name="name">available.quantities.wizard</field>
 		<field name="model">available.quantities.wizard</field>
@@ -25,6 +43,22 @@
 		<field name="view_id" ref="view_available_quantities_wizard"></field>
 		
 	</record>
-
+	<!-- <record id="view_available_quantities_tree" model="ir.ui.view">
+        <field name="name">available.quantities.wizard.tree</field>
+        <field name="model">available.quantities.wizard</field>
+        <field name="arch" type="xml">
+            <tree string="Product Availability">
+                <field name="stock_product_id"/>
+                <field name="stock_location_id"/>
+            </tree>
+        </field>
+    </record>
+	<record id="action_available_quantities_wizard_tree_view" model="ir.actions.act_window">
+        <field name="name">Product Availability</field>
+        <field name="res_model">available.quantities.wizard</field>
+        <field name="search_view_id" ref="view_available_quantities_search" />
+        <field name="view_mode">tree</field>
+		<field name="view_id" ref="view_available_quantities_tree"/>
+    </record> -->
 	
 </odoo>
