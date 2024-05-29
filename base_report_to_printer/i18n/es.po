@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-19 03:38+0000\n"
-"PO-Revision-Date: 2024-02-12 19:34+0000\n"
+"PO-Revision-Date: 2023-07-23 12:08+0000\n"
 "Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
@@ -159,11 +159,6 @@ msgid "Completed with some warnings"
 msgstr "Completado con algunos avisos"
 
 #. module: base_report_to_printer
-#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_job__time_at_completed
-msgid "Completion Date"
-msgstr "Fecha de Finalización"
-
-#. module: base_report_to_printer
 #: model:ir.model.fields.selection,name:base_report_to_printer.selection__printing_job__job_state_reason__unsupported-compression
 msgid "Compressed using an unknown algorithm"
 msgstr "Comprimido usando un algoritmo desconocido"
@@ -177,8 +172,8 @@ msgstr "Copias"
 #. odoo-javascript
 #: code:addons/base_report_to_printer/static/src/js/qweb_action_manager.esm.js:0
 #, python-format
-msgid "Could not send to printer!"
-msgstr "¡No se puede enviar a la impresora!"
+msgid "Could not sent to printer!"
+msgstr "¡No se ha podido enviar a la impresora!"
 
 #. module: base_report_to_printer
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_action__create_uid
@@ -205,11 +200,6 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line__create_date
 msgid "Created on"
 msgstr "Creado en"
-
-#. module: base_report_to_printer
-#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_job__time_at_creation
-msgid "Creation Date"
-msgstr "Fecha Creación"
 
 #. module: base_report_to_printer
 #: model:ir.model.fields,help:base_report_to_printer.field_printing_job__job_state
@@ -243,7 +233,7 @@ msgstr "Fecha y hora de finalización de este trabajo."
 
 #. module: base_report_to_printer
 #: model:ir.model.fields,help:base_report_to_printer.field_printing_job__time_at_creation
-msgid "Date and time of creation of this job."
+msgid "Date and time of creation for this job."
 msgstr "Fecha y hora de creación de este trabajo."
 
 #. module: base_report_to_printer
@@ -404,11 +394,6 @@ msgid "If checked, this server is useable."
 msgstr "Si está marcado, el servidor es utilizable."
 
 #. module: base_report_to_printer
-#: model_terms:ir.ui.view,arch_db:base_report_to_printer.printing_job_view_form
-msgid "Job"
-msgstr "Trabajo"
-
-#. module: base_report_to_printer
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_job__job_id_cups
 msgid "Job ID"
 msgstr "ID de Trabajo"
@@ -428,19 +413,6 @@ msgstr "Trabajos"
 #: model:ir.model.fields,help:base_report_to_printer.field_printing_printer__job_ids
 msgid "Jobs printed on this printer."
 msgstr "Trabajos imprimidos por la impresora."
-
-#. module: base_report_to_printer
-#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_action____last_update
-#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_job____last_update
-#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_printer____last_update
-#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_printer_update_wizard____last_update
-#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_report_xml_action____last_update
-#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_server____last_update
-#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_tray____last_update
-#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment____last_update
-#: model:ir.model.fields,field_description:base_report_to_printer.field_wizard_print_attachment_line____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
 
 #. module: base_report_to_printer
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_action__write_uid
@@ -603,11 +575,6 @@ msgid "Print Test Page"
 msgstr "Imprimir página de prueba"
 
 #. module: base_report_to_printer
-#: model_terms:ir.ui.view,arch_db:base_report_to_printer.wizard_print_attachment_form
-msgid "Print attachments"
-msgstr "Imprimir archivos adjuntos"
-
-#. module: base_report_to_printer
 #: model:ir.model,name:base_report_to_printer.model_printing_printer
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_job__printer_id
 #: model:ir.model.fields,field_description:base_report_to_printer.field_printing_report_xml_action__printer_id
@@ -648,7 +615,6 @@ msgstr "Impresora utilizada para imprimir los archivos adjuntos."
 
 #. module: base_report_to_printer
 #: model:ir.ui.menu,name:base_report_to_printer.printing_printer_menu
-#: model_terms:ir.ui.view,arch_db:base_report_to_printer.printing_printer_view_form
 #: model_terms:ir.ui.view,arch_db:base_report_to_printer.printing_printer_view_search
 #: model_terms:ir.ui.view,arch_db:base_report_to_printer.printing_server_view_form
 msgid "Printers"
@@ -707,11 +673,6 @@ msgid "Processing"
 msgstr "Procesando"
 
 #. module: base_report_to_printer
-#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_job__time_at_processing
-msgid "Processing Date"
-msgstr "Fecha de Procesamiento"
-
-#. module: base_report_to_printer
 #: model:ir.model.fields.selection,name:base_report_to_printer.selection__printing_job__job_state__processing_stopped
 msgid "Processing Stopped"
 msgstr "Procesamiento parado"
@@ -740,11 +701,6 @@ msgstr "Informe"
 #: model:ir.model,name:base_report_to_printer.model_ir_actions_report
 msgid "Report Action"
 msgstr "Informar Acción"
-
-#. module: base_report_to_printer
-#: model_terms:ir.ui.view,arch_db:base_report_to_printer.printing_report_xml_action_view_form
-msgid "Report Printing Actions"
-msgstr "Acciones de impresión de informes"
 
 #. module: base_report_to_printer
 #: model:ir.ui.menu,name:base_report_to_printer.printing_report_xml_action_menu
@@ -785,7 +741,6 @@ msgstr "Servidor que contiene este trabajo."
 #. module: base_report_to_printer
 #: model:ir.actions.act_window,name:base_report_to_printer.printing_server_action
 #: model:ir.ui.menu,name:base_report_to_printer.printing_server_menu
-#: model_terms:ir.ui.view,arch_db:base_report_to_printer.printing_server_view_form
 #: model_terms:ir.ui.view,arch_db:base_report_to_printer.printing_server_view_search
 msgid "Servers"
 msgstr "Servidores"
@@ -869,6 +824,21 @@ msgid "This report type (%s) is not supported by direct printing!"
 msgstr "¡Este tipo de informe (%s) no es compatible con la impresión directa!"
 
 #. module: base_report_to_printer
+#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_job__time_at_completed
+msgid "Time At Completed"
+msgstr "Tiempo al finalizar"
+
+#. module: base_report_to_printer
+#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_job__time_at_creation
+msgid "Time At Creation"
+msgstr "Tiempo a la creacion"
+
+#. module: base_report_to_printer
+#: model:ir.model.fields,field_description:base_report_to_printer.field_printing_job__time_at_processing
+msgid "Time At Processing"
+msgstr "Tiempo al procesar"
+
+#. module: base_report_to_printer
 #: model_terms:ir.ui.view,arch_db:base_report_to_printer.printing_printer_view_form
 msgid "Trays"
 msgstr "Bandejas"
@@ -890,8 +860,8 @@ msgstr "No disponible"
 
 #. module: base_report_to_printer
 #: model:ir.model.fields,help:base_report_to_printer.field_printing_job__active
-msgid "Unchecked if the job is purged from CUPS."
-msgstr "Desmarcado si el trabajo se purga de CUPS."
+msgid "Unchecked if the job is purged from cups."
+msgstr "Desmarcado si el trabajo se purga desde CUPS."
 
 #. module: base_report_to_printer
 #: model:ir.model.fields.selection,name:base_report_to_printer.selection__printing_job__job_state__unknown
@@ -921,7 +891,6 @@ msgstr "Actualizar impresoras"
 
 #. module: base_report_to_printer
 #: model:ir.actions.server,name:base_report_to_printer.ir_cron_update_printers_ir_actions_server
-#: model:ir.cron,cron_name:base_report_to_printer.ir_cron_update_printers
 msgid "Update Printers Jobs"
 msgstr "Actualizar Trabajos de Impresión"
 
@@ -956,24 +925,17 @@ msgstr "Asistente"
 msgid "{name} ({copies} copies)"
 msgstr "{name} ({copies} copies) :{name} ({copies} copias)"
 
-#, python-format
-#~ msgid "Could not sent to printer!"
-#~ msgstr "¡No se ha podido enviar a la impresora!"
+#~ msgid "Job"
+#~ msgstr "Trabajo"
 
-#~ msgid "Date and time of creation for this job."
-#~ msgstr "Fecha y hora de creación de este trabajo."
+#~ msgid "Last Modified on"
+#~ msgstr "Última modificación el"
 
-#~ msgid "Time At Completed"
-#~ msgstr "Tiempo al finalizar"
+#~ msgid "Print attachments"
+#~ msgstr "Imprimir archivos adjuntos"
 
-#~ msgid "Time At Creation"
-#~ msgstr "Tiempo a la creacion"
-
-#~ msgid "Time At Processing"
-#~ msgstr "Tiempo al procesar"
-
-#~ msgid "Unchecked if the job is purged from cups."
-#~ msgstr "Desmarcado si el trabajo se purga desde CUPS."
+#~ msgid "Report Printing Actions"
+#~ msgstr "Acciones de impresión de informes"
 
 #~ msgid "Users"
 #~ msgstr "Usuarios"

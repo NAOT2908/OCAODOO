@@ -15,7 +15,7 @@ class PrintingJob(models.Model):
 
     name = fields.Char(help="Job name.")
     active = fields.Boolean(
-        default=True, help="Unchecked if the job is purged from CUPS."
+        default=True, help="Unchecked if the job is purged from cups."
     )
     job_id_cups = fields.Integer(
         string="Job ID", required=True, help="CUPS id for this job."
@@ -40,15 +40,11 @@ class PrintingJob(models.Model):
         help="Percentage of progress for this job.",
     )
     time_at_creation = fields.Datetime(
-        string="Creation Date",
-        required=True,
-        help="Date and time of creation of this job.",
+        required=True, help="Date and time of creation for this job."
     )
-    time_at_processing = fields.Datetime(
-        string="Processing Date", help="Date and time of process for this job."
-    )
+    time_at_processing = fields.Datetime(help="Date and time of process for this job.")
     time_at_completed = fields.Datetime(
-        string="Completion Date", help="Date and time of completion for this job."
+        help="Date and time of completion for this job."
     )
     job_state = fields.Selection(
         selection=[
