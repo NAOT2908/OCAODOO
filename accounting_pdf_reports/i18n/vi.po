@@ -25,25 +25,25 @@ msgstr "：Sổ cái"
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid ": Trial Balance"
-msgstr "：試算表"
+msgstr "："
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "<span>Not due</span>"
-msgstr "<span>未到期</span>"
+msgstr "<span></span>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "<strong>Analytic Accounts:</strong>"
-msgstr "<strong>分析帳戶：</strong>"
+msgstr "<strong>：</strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_partnerledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
 msgid "<strong>Company:</strong>"
-msgstr "<strong>公司：</strong>"
+msgstr "<strong>：</strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_financial
@@ -52,7 +52,7 @@ msgstr "<strong>公司：</strong>"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "<strong>Date from :</strong>"
-msgstr "<strong>日期從 :</strong>"
+msgstr "<strong> :</strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_financial
@@ -61,33 +61,33 @@ msgstr "<strong>日期從 :</strong>"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "<strong>Date to :</strong>"
-msgstr "<strong>日期至 :</strong>"
+msgstr "<strong> :</strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "<strong>Display Account:</strong>"
-msgstr "<strong>顯示科目:</strong>"
+msgstr "<strong>:</strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 msgid "<strong>Display Account</strong>"
-msgstr "<strong>顯示科目</strong>"
+msgstr "<strong></strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 msgid "<strong>Entries Sorted By:</strong>"
-msgstr "<strong>傳票排序：</strong>"
+msgstr "<strong></strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 msgid "<strong>Journal:</strong>"
-msgstr "<strong>日記帳：</strong>"
+msgstr "<strong></strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "<strong>Journals:</strong>"
-msgstr "<strong>日記帳:</strong>"
+msgstr "<strong>:</strong>"
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_aged_balance_view
@@ -95,12 +95,12 @@ msgstr "<strong>日記帳:</strong>"
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_aged_trial_balance
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "Aged Partner Balance"
-msgstr "業務夥伴帳齡表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_report_accounting_pdf_reports_report_agedpartnerbalance
 msgid "Aged Partner Balance Report"
-msgstr "業務夥伴帳齡表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_aged_payable
@@ -119,7 +119,7 @@ msgstr "應收帳齡表"
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_common_account_report__display_account__all
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_report_general_ledger__display_account__all
 msgid "All"
-msgstr "全部"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_aged_trial_balance__target_move__all
@@ -141,7 +141,7 @@ msgstr "全部"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "All Entries"
-msgstr "所有傳票"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_aged_trial_balance__target_move__posted
@@ -163,70 +163,70 @@ msgstr "所有傳票"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "All Posted Entries"
-msgstr "所有已過帳傳票"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "All accounts"
-msgstr "所有科目"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 msgid "All accounts'"
-msgstr "所有科目的"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal_entries
 msgid "Analytic Account"
-msgstr "分析科目"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_balance_report__analytic_account_ids
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_common_account_report__analytic_account_ids
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_report_general_ledger__analytic_account_ids
 msgid "Analytic Accounts"
-msgstr "分析帳戶"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_assets0
 msgid "Assets"
-msgstr "資產"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_finance_audit_reports
 msgid "Audit Reports"
-msgstr "審計報告"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__style_overwrite__0
 msgid "Automatic formatting"
-msgstr "自動格式化"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "<strong>Partner's:</strong>"
-msgstr "<strong>合作夥伴的:</strong>"
+msgstr "<strong>:</strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "<strong>Period Length (days)</strong>"
-msgstr "<strong>期間長度（天）</strong>"
+msgstr "<strong></strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
 msgid "<strong>Purchase</strong>"
-msgstr "<strong>採購</strong>"
+msgstr "<strong></strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 msgid "<strong>Sorted By:</strong>"
-msgstr "<strong>排序按：</strong>"
+msgstr "<strong></strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "<strong>Start Date:</strong>"
-msgstr "<strong>開始日期</strong>:"
+msgstr "<strong></strong>:"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
@@ -237,12 +237,12 @@ msgstr "<strong>開始日期</strong>:"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "<strong>Target Moves:</strong>"
-msgstr "<strong>目標移位：</strong>"
+msgstr "<strong></strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 msgid "<strong>Total</strong>"
-msgstr "<strong>總計</strong>"
+msgstr "<strong></strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
@@ -250,42 +250,42 @@ msgstr "<strong>總計</strong>"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_partnerledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "Account"
-msgstr "會計"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_account_type
 msgid "Account Account Type"
-msgstr "會計帳戶類型"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_aged_trial_balance
 msgid "Account Aged Trial balance Report"
-msgstr "帳目帳齡試算餘額報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_common_account_report
 msgid "Account Common Account Report"
-msgstr "帳目通用報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_common_partner_report
 msgid "Account Common Partner Report"
-msgstr "通用合作夥伴報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_common_report
 msgid "Account Common Report"
-msgstr "會計共通報告"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_report_partner_ledger
 msgid "Account Partner Ledger"
-msgstr "合作夥伴總帳"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_print_journal
 msgid "Account Print Journal"
-msgstr "會計列印日記帳"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,help:accounting_pdf_reports.field_account_financial_report__style_overwrite
@@ -294,29 +294,29 @@ msgid ""
 "leave the automatic formatting, it will be computed based on the financial "
 "reports hierarchy (auto-computed field 'level')."
 msgstr ""
-"您可以在此處設置希望顯示此記錄的格式。如果保留自動格式,則將根據財務報表格階"
-"層圖(自動計算欄位\"級別\")計算。"
+""
+""
 
 #. module: accounting_pdf_reports
 #. odoo-python
 #: code:addons/accounting_pdf_reports/wizard/account_general_ledger.py:0
 #, python-format
 msgid "You must define a Start Date"
-msgstr "您必須定義開始日期"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #. odoo-python
 #: code:addons/accounting_pdf_reports/wizard/aged_partner.py:0
 #, python-format
 msgid "You must set a period length greater than 0."
-msgstr "您必須設置一個大於0的期間長度。"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #. odoo-python
 #: code:addons/accounting_pdf_reports/wizard/aged_partner.py:0
 #, python-format
 msgid "You must set a start date."
-msgstr "您必須設定一個開始日期."
+msgstr "."
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_financial_report
@@ -324,33 +324,33 @@ msgstr "您必須設定一個開始日期."
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.view_account_financial_report_search
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.view_account_financial_report_tree
 msgid "Account Report"
-msgstr "財務報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__account_report_id
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_account_reports
 msgid "Account Reports"
-msgstr "財務報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "Account Total"
-msgstr "帳戶合計"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__type__account_type
 msgid "Account Type"
-msgstr "帳戶類型"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__account_type_ids
 msgid "Account Types"
-msgstr "帳戶類型"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_accounting_report
 msgid "Accounting Report"
-msgstr "財務報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_balance_report__account_ids
@@ -359,7 +359,7 @@ msgstr "財務報表"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_report_general_ledger__account_ids
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__type__accounts
 msgid "Accounts"
-msgstr "會計帳戶"
+msgstr ""
 
 
 
@@ -369,62 +369,62 @@ msgstr "會計帳戶"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_partnerledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "Balance"
-msgstr "餘額"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_balancesheet0
 #: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_report_bs
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_account_report_bs
 msgid "Balance Sheet"
-msgstr "資產負債表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.act_window,name:accounting_pdf_reports.action_partner_report_partnerledger
 msgid "Balance Statement (Partner Ledger)"
-msgstr "餘額表（合作夥伴分類帳）"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_liquidity
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__asset_cash
 msgid "Bank and Cash"
-msgstr "銀行和現金"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 msgid "Base Amount"
-msgstr "基本金額"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.account_aged_balance_view
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.account_common_report_view
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.accounting_tax_report_view
 msgid "Cancel"
-msgstr "取消"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__children_ids
 msgid "Children"
-msgstr "下級"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.view_account_financial_report_form
 msgid "Childrens"
-msgstr "子階"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "Code"
-msgstr "代碼"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__label_filter
 msgid "Column Label"
-msgstr "比較期間標題"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_common_journal_report
 msgid "Common Journal Report"
-msgstr "通用日記帳報告"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_aged_trial_balance__company_id
@@ -439,18 +439,18 @@ msgstr "通用日記帳報告"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_tax_report_wizard__company_id
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__company_id
 msgid "Company"
-msgstr "公司"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.accounting_report_view
 msgid "Comparison"
-msgstr "比較"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_direct_costs
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__expense_direct_cost
 msgid "Cost of Revenue"
-msgstr "主營業務成本"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_account_type__create_uid
@@ -467,7 +467,7 @@ msgstr "主營業務成本"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_tax_report_wizard__create_uid
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__create_uid
 msgid "Created by"
-msgstr "建立者"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_account_type__create_date
@@ -484,7 +484,7 @@ msgstr "建立者"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_tax_report_wizard__create_date
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__create_date
 msgid "Created on"
-msgstr "建立於"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_financial
@@ -494,38 +494,38 @@ msgstr "建立於"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_partnerledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "Credit"
-msgstr "貸方"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_credit_card
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__liability_credit_card
 msgid "Credit Card"
-msgstr "信用卡"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_partnerledger
 msgid "Currency"
-msgstr "幣別"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_current_assets
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__asset_current
 msgid "Current Assets"
-msgstr "流動資產"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_current_liabilities
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__liability_current
 msgid "Current Liabilities"
-msgstr "流動負債"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_unaffected_earnings
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__equity_unaffected
 msgid "Current Year Earnings"
-msgstr "目前年度收益"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_print_journal__sort_selection__date
@@ -536,29 +536,29 @@ msgstr "目前年度收益"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal_entries
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_partnerledger
 msgid "Date"
-msgstr "日期"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_tax_report_wizard__date_from
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__date_from_cmp
 msgid "Date From"
-msgstr "起始日期"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_tax_report_wizard__date_to
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__date_to_cmp
 msgid "Date To"
-msgstr "結束日期"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal_entries
 msgid "Date:"
-msgstr "日期："
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.accounting_report_view
 msgid "Dates"
-msgstr "日期"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_financial
@@ -568,25 +568,25 @@ msgstr "日期"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_partnerledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "Debit"
-msgstr "借方"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_depreciation
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__expense_depreciation
 msgid "Depreciation"
-msgstr "折舊"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_balance_report__display_account
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_common_account_report__display_account
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_report_general_ledger__display_account
 msgid "Display Accounts"
-msgstr "顯示會計科目"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__debit_credit
 msgid "Display Debit/Credit Columns"
-msgstr "顯示借方/貸方"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_account_type__display_name
@@ -603,37 +603,37 @@ msgstr "顯示借方/貸方"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_tax_report_wizard__display_name
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__display_name
 msgid "Display Name"
-msgstr "顯示名稱"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__display_detail__detail_flat
 msgid "Display children flat"
-msgstr "顯示子項目(單階)"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__display_detail__detail_with_hierarchy
 msgid "Display children with hierarchy"
-msgstr "依層級展開子階"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__display_detail
 msgid "Display details"
-msgstr "顯示詳細資訊"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.res_config_settings_view_form
 msgid "Drill Down Reports"
-msgstr "延伸查詢報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.res_config_settings_view_form
 msgid "Dynamic Accounting Reports"
-msgstr "動態會計報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__enable_filter
 msgid "Enable Comparison"
-msgstr "啟用比較數據"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_aged_trial_balance__date_to
@@ -647,59 +647,59 @@ msgstr "啟用比較數據"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_report_partner_ledger__date_to
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__date_to
 msgid "End Date"
-msgstr "結束日期"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.res_config_settings_view_form
 msgid "Enhanced Financial Reports"
-msgstr "增強型財務報告"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_print_journal__sort_selection
 msgid "Entries Sorted by"
-msgstr "傳票排序 按"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 msgid "Entry Label"
-msgstr "試算表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_equity
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__equity
 msgid "Equity"
-msgstr "權益"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.res_config_settings_view_form
 msgid "Excel Reports"
-msgstr "EXCEL報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_expense0
 msgid "Expense"
-msgstr "費用"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_expenses
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__expense
 msgid "Expenses"
-msgstr "費用"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__filter_cmp
 msgid "Filter by"
-msgstr "篩選條件為"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.report,name:accounting_pdf_reports.action_report_financial
 msgid "Financial Report"
-msgstr "財務報告"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__style_overwrite
 msgid "Financial Report Style"
-msgstr "字體格式"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_financial_report_tree
@@ -707,18 +707,18 @@ msgstr "字體格式"
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_finance_legal_statement
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_finance_reports_settings
 msgid "Financial Reports"
-msgstr "財務報告"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.res_config_settings_view_form
 msgid "Financial Reports in Excel"
-msgstr "Excel 中的財務報表"
+msgstr "Excel "
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_fixed_assets
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__asset_fixed
 msgid "Fixed Assets"
-msgstr "固定資產"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,help:accounting_pdf_reports.field_account_financial_report__sign
@@ -729,9 +729,9 @@ msgid ""
 "accounts that are typically more credited than debited and that you would "
 "like to print as positive amounts in your reports; e.g.: Income account."
 msgstr ""
-"對於通常借記多於貸記的帳戶,並且您希望在報表中列印為負金額,應沖銷餘額的符號;"
-"如果帳戶數通常高於貸記,則應沖銷餘額的符號。例如:支出科目。這同樣適用于通常貸"
-"記比借記多的帳戶,並且您希望在報表中列印為正金額;例如:收入帳戶。"
+""
+""
+""
 
 #. module: accounting_pdf_reports
 #. odoo-python
@@ -744,7 +744,7 @@ msgstr ""
 #: code:addons/accounting_pdf_reports/report/report_trial_balance.py:0
 #, python-format
 msgid "Form content is missing, this report cannot be printed."
-msgstr "表單內容遺失，無法列印此報表。"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_general_ledger_menu
@@ -753,18 +753,18 @@ msgstr "表單內容遺失，無法列印此報表。"
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_action_account_moves_ledger_general
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_general_ledger
 msgid "General Ledger"
-msgstr "總分類帳"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_report_general_ledger
 #: model:ir.model,name:accounting_pdf_reports.model_report_accounting_pdf_reports_report_general_ledger
 msgid "General Ledger Report"
-msgstr "總分類帳報告"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.view_account_financial_report_search
 msgid "Group By"
-msgstr "分組按"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_account_type__id
@@ -789,32 +789,32 @@ msgid ""
 "If you selected date, this field allow you to add a row to display the "
 "amount of debit/credit/balance that precedes the filter you've set."
 msgstr ""
-"如果選擇了比較日期,則此欄位允許您添加一行以顯示您設置的篩選器之前的借方/貸"
-"方/餘額金額。"
+""
+""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_report_general_ledger__initial_balance
 msgid "Include Initial Balances"
-msgstr "包括期初餘額"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_revenue
 #: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_income0
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__income
 msgid "Income"
-msgstr "收入"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,help:accounting_pdf_reports.field_account_report_partner_ledger__amount_currency
 msgid ""
 "It adds the currency column on report if the currency differs from the "
 "company currency."
-msgstr "如果貨幣與公司貨幣不同，它會在報表上添加貨幣列。"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__style_overwrite__5
 msgid "Italic Text (smaller)"
-msgstr "斜體文本(較小)"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
@@ -825,38 +825,38 @@ msgstr "JRNL"
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 msgid "Journal"
-msgstr "日記帳"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_report_general_ledger__sortby__sort_journal_partner
 msgid "Journal & Partner"
-msgstr "日記帳簿&合作夥伴"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_report_accounting_pdf_reports_report_journal
 msgid "Journal Audit Report"
-msgstr "日記帳報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_print_journal__sort_selection__move_name
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 msgid "Journal Entry Number"
-msgstr "日記帳傳票號碼"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_move_line
 msgid "Journal Item"
-msgstr "日記帳項目"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 msgid "Journal and Partner"
-msgstr "日記帳與合作夥伴"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal_entries
 msgid "Journal:"
-msgstr "日記帳:"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_aged_trial_balance__journal_ids
@@ -871,25 +871,25 @@ msgstr "日記帳:"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_tax_report_wizard__journal_ids
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__journal_ids
 msgid "Journals"
-msgstr "日記帳"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_print_journal_menu
 #: model:ir.actions.report,name:accounting_pdf_reports.action_report_journal
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_print_journal
 msgid "Journals Audit"
-msgstr "日記帳報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.report,name:accounting_pdf_reports.action_report_journal_entries
 msgid "Journals Entries"
-msgstr "分錄"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal_entries
 msgid "Label"
-msgstr "摘要"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_account_type__write_uid
@@ -906,7 +906,7 @@ msgstr "摘要"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_tax_report_wizard__write_uid
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__write_uid
 msgid "Last Updated by"
-msgstr "最後更新人"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_account_type__write_date
@@ -923,102 +923,102 @@ msgstr "最後更新人"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_tax_report_wizard__write_date
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__write_date
 msgid "Last Updated on"
-msgstr "最後更新時間"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_finance_entries_accounting_ledgers
 msgid "Ledgers"
-msgstr "分類帳"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__level
 msgid "Level"
-msgstr "層級"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_liability0
 #: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_liabilitysum0
 msgid "Liability"
-msgstr "負債"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__style_overwrite__1
 msgid "Main Title 1 (bold, underlined)"
-msgstr "主標題 1（粗體、帶底線）"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 msgid "Move"
-msgstr "分錄"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_account_type__name
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_financial
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 msgid "Name"
-msgstr "名稱"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
 msgid "Net"
-msgstr "淨"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__accounting_report__filter_cmp__filter_no
 msgid "No Filters"
-msgstr "無篩選器"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__display_detail__no_detail
 msgid "No detail"
-msgstr "無詳細資訊"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_non_current_assets
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__asset_non_current
 msgid "Non-current Assets"
-msgstr "非流動資產"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_non_current_liabilities
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__liability_non_current
 msgid "Non-current Liabilities"
-msgstr "非流動負債"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__style_overwrite__4
 msgid "Normal Text"
-msgstr "普通文本"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_off_sheet
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__off_balance
 msgid "Off-Balance Sheet"
-msgstr "資產負債表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_other_income
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__income_other
 msgid "Other Income"
-msgstr "其他收入"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__parent_id
 msgid "Parent"
-msgstr "上級"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.view_account_financial_report_search
 msgid "Parent Report"
-msgstr "上級報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal_entries
 msgid "Partner"
-msgstr "合作夥伴"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_moves_ledger_partner
@@ -1028,29 +1028,29 @@ msgstr "合作夥伴"
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_partner_ledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_partnerledger
 msgid "Partner Ledger"
-msgstr "合作夥伴分類帳"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_report_accounting_pdf_reports_report_partnerledger
 msgid "Partner Ledger Report"
-msgstr "合作夥伴報告"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_finance_partner_reports
 msgid "Partner Reports"
-msgstr "合作夥伴的報告"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_aged_trial_balance__result_selection
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_common_partner_report__result_selection
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_report_partner_ledger__result_selection
 msgid "Partner's"
-msgstr "合作夥伴"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal_entries
 msgid "Partner:"
-msgstr "合作夥伴:"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_aged_trial_balance__partner_ids
@@ -1061,13 +1061,13 @@ msgstr "合作夥伴:"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_report_partner_ledger__partner_ids
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "Partners"
-msgstr "合作夥伴"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_payable
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__liability_payable
 msgid "Payable"
-msgstr "應付帳款"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_aged_trial_balance__result_selection__supplier
@@ -1075,35 +1075,35 @@ msgstr "應付帳款"
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_report_partner_ledger__result_selection__supplier
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "Payable Accounts"
-msgstr "應付帳款"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_aged_trial_balance__period_length
 msgid "Period Length (days)"
-msgstr "期間長度(天)"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_prepayments
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__asset_prepayments
 msgid "Prepayments"
-msgstr "預付款"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__sign__1
 msgid "Preserve balance sign"
-msgstr "借方為正數"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.res_config_settings_view_form
 msgid "Preview financial reports without downloading"
-msgstr "無需下載即可預覽財務報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.account_aged_balance_view
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.account_common_report_view
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.accounting_tax_report_view
 msgid "Print"
-msgstr "列印"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,help:accounting_pdf_reports.field_account_common_journal_report__amount_currency
@@ -1111,25 +1111,25 @@ msgstr "列印"
 msgid ""
 "Print Report with the currency column if the currency differs from the "
 "company currency."
-msgstr "當貨幣不同於公司貨幣時，列印報告帶有外幣列。"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_profitloss_toreport0
 msgid "Profit (Loss) to report"
-msgstr "損益表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_profitandloss0
 #: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_report_pl
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_account_report_pl
 msgid "Profit and Loss"
-msgstr "損益表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:account.account.type,name:accounting_pdf_reports.data_account_type_receivable
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_account_type__type__asset_receivable
 msgid "Receivable"
-msgstr "應收帳款"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_aged_trial_balance__result_selection__customer
@@ -1137,7 +1137,7 @@ msgstr "應收帳款"
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_report_partner_ledger__result_selection__customer
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "Receivable Accounts"
-msgstr "應收帳款"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_aged_trial_balance__result_selection__customer_supplier
@@ -1145,91 +1145,91 @@ msgstr "應收帳款"
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_report_partner_ledger__result_selection__customer_supplier
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "Receivable and Payable Accounts"
-msgstr "應收與應付帳戶"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_report_partner_ledger__reconciled
 msgid "Reconciled Entries"
-msgstr "已核銷傳票"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_partnerledger
 msgid "Ref"
-msgstr "參考編號"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal_entries
 msgid "Reference:"
-msgstr "編號："
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.view_account_financial_report_form
 msgid "Report"
-msgstr "報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__report_domain
 msgid "Report Domain"
-msgstr "報表篩選"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__name
 msgid "Report Name"
-msgstr "報告名稱"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.account_aged_balance_view
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.account_common_report_view
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.accounting_tax_report_view
 msgid "Report Options"
-msgstr "報告選項"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.view_account_financial_report_search
 msgid "Report Type"
-msgstr "報告類型"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__account_report_id
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__type__account_report
 msgid "Report Value"
-msgstr "報表值"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.view_account_financial_report_search
 msgid "Reports"
-msgstr "報告"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__sign__-1
 msgid "Reverse balance sign"
-msgstr "貸方為正數"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
 msgid "Sale"
-msgstr "銷售"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__sequence
 msgid "Sequence"
-msgstr "排序號"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__sign
 msgid "Sign on Reports"
-msgstr "報表符號"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__style_overwrite__6
 msgid "Smallest Text"
-msgstr "最小的文本"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_report_general_ledger__sortby
 msgid "Sort by"
-msgstr "排序"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_aged_trial_balance__date_from
@@ -1243,7 +1243,7 @@ msgstr "排序"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_report_partner_ledger__date_from
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__date_from
 msgid "Start Date"
-msgstr "開始日期"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_aged_trial_balance__target_move
@@ -1258,22 +1258,22 @@ msgstr "開始日期"
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_tax_report_wizard__target_move
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_accounting_report__target_move
 msgid "Target Moves"
-msgstr "傳票狀態"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
 msgid "Tax"
-msgstr "稅"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 msgid "Tax Amount"
-msgstr "稅金總額"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_journal
 msgid "Tax Declaration"
-msgstr "稅金聲明"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.report,name:accounting_pdf_reports.action_report_account_tax
@@ -1282,26 +1282,26 @@ msgstr "稅金聲明"
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_account_report
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
 msgid "Tax Report"
-msgstr "稅金報告"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_tax_report
 msgid "Tax Reports"
-msgstr "稅報表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,help:accounting_pdf_reports.field_account_account_type__type
 msgid ""
 "These types are defined according to your country. The type contains more "
 "information about the account and its specificities."
-msgstr "根據您所在的國家定義類型，這個類型包含科目和他的特性的更多的資訊."
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,help:accounting_pdf_reports.field_accounting_report__label_filter
 msgid ""
 "This label will be displayed on report to show the balance computed for the "
 "given comparison filter."
-msgstr "此標籤將顯示在報表上，以顯示為給定的比較篩選器計算的餘額。"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,help:accounting_pdf_reports.field_accounting_report__debit_credit
@@ -1310,74 +1310,74 @@ msgid ""
 "computed. Because it is space consuming, we do not allow to use it while "
 "doing a comparison."
 msgstr ""
-"此選項允許您獲取有關餘額計算方式的更多詳細資訊。因為它佔用空間，我們不允許在"
-"進行比較時使用它。"
+""
+""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__style_overwrite__2
 msgid "Title 2 (bold)"
-msgstr "標題 2（粗體）"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__style_overwrite__3
 msgid "Title 3 (bold, smaller)"
-msgstr "標題 3（粗體、小）"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "Total"
-msgstr "總計"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.actions.act_window,name:accounting_pdf_reports.action_account_balance_menu
 #: model:ir.actions.report,name:accounting_pdf_reports.action_report_trial_balance
 #: model:ir.ui.menu,name:accounting_pdf_reports.menu_general_balance_report
 msgid "Trial Balance"
-msgstr "試算表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_account_balance_report
 #: model:ir.model,name:accounting_pdf_reports.model_report_accounting_pdf_reports_report_trialbalance
 msgid "Trial Balance Report"
-msgstr "試算表"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_account_type__type
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__type
 msgid "Type"
-msgstr "類型"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #. odoo-python
 #: code:addons/accounting_pdf_reports/report/report_aged_partner.py:0
 #, python-format
 msgid "Unknown Partner"
-msgstr "未知業務夥伴"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__type__sum
 msgid "View"
-msgstr "檢視"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_common_journal_report__amount_currency
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_print_journal__amount_currency
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_report_partner_ledger__amount_currency
 msgid "With Currency"
-msgstr "使用貨幣"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_balance_report__display_account__not_zero
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_common_account_report__display_account__not_zero
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_report_general_ledger__display_account__not_zero
 msgid "With balance is not equal to 0"
-msgstr "餘額不為0"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "With balance not equal to zero"
-msgstr "餘額不為0"
+msgstr ""
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_balance_report__display_account__movement
@@ -1386,6 +1386,6 @@ msgstr "餘額不為0"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "With movements"
-msgstr "期間有交易"
+msgstr ""
 
 

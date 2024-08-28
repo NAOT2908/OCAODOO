@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- inherit Sale Form view -->
+    <record id="inherit_sale_order_form_view" model="ir.ui.view">
+        <field name="name">inherit.sale.order.form.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="is_merge_order"/>
+                <field name="merge_user_id" invisible="1" />
+                <field name="merge_sale_orders" invisible= "is_merge_order == False" />
+                <field name="merge_date" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

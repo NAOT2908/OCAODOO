@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+  <t t-inherit="web.ListView" t-inherit-mode="extension">
+    <xpath expr="//Layout/t[@t-set-slot='control-panel-always-buttons']" position="after">
+      <div class="groupby-header-btn">
+        <button t-if="model.root.groupBy.length > 0" type="button" class="btn btn-secondary expand-collapse-btn" t-on-click="() => this.expandlist()">Expand</button>
+      <button t-if="model.root.groupBy.length > 0" type="button" class="btn btn-secondary expand-collapse-btn" t-on-click="() => this.collapselist()">Collapse</button>
+      </div>
+    </xpath>
+  </t>
+  <t t-name="account.ListView.Buttons.Groupby" t-inherit="web.ListView">
+    <xpath expr="//Layout/t[@t-set-slot='control-panel-always-buttons']" position="after">
+      <div class="groupby-header-btn">
+      <button t-if="model.root.groupBy.length > 0" type="button" class="btn btn-secondary expand-collapse-btn" t-on-click="expandlist">Expand</button>
+      <button t-if="model.root.groupBy.length > 0" type="button" class="btn btn-secondary expand-collapse-btn " t-on-click="collapselist">Collapse</button>
+      </div>
+    </xpath>
+  </t>
+</templates>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_subscription_pricing,sttl_sale_subscription.product_subscription_pricing,model_product_subscription_pricing,base.group_user,1,1,1,1
+access_product_subscription_period,sttl_sale_subscription.product_subscription_period,model_product_subscription_period,base.group_user,1,1,1,1
+access_close_reason,sttl_sale_subscription.close_reason,model_close_reason,base.group_user,1,0,0,0
+access_close_reason_wizard,sttl_sale_subscription.close_reason_wizard,model_close_reason_wizard,base.group_user,1,1,1,1

@@ -14,7 +14,7 @@ class UserAuditLogs(models.Model):
     user_id = fields.Many2one('res.users', string="User",
                               help="For getting user")
     record = fields.Integer(string="Record ID",
-                            help="For getting which record has accessed")
+                            help="For getting which record has accessed", readonly=True)
     model_id = fields.Many2one('ir.model', string="Object",
                                help="For getting which model has accessed")
     operation_type = fields.Selection(selection=[('read', 'Read'),

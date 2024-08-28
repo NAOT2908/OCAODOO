@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="web_widget_time_delta.FieldTimeDelta" owl="1">
+
+        <div t-ref="el">
+            <span t-if="props.readonly" t-esc="formattedValue"/>
+            <input
+                    t-else=""
+                    t-att-id="props.id"
+                    t-ref="timeDecimal"
+                    t-att-value="value"
+                    class="timedelta"
+                    autocomplete="off"/>
+        </div>
+	</t>
+</templates>

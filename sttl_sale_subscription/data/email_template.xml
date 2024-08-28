@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <data noupdate="1"> -->
+        <record id="sale_subscription_notification_template" model="mail.template">
+            <field name="name">Sale Subscription Renewal Notification</field>
+            <field name="email_from">{{ object.company_id.email }}</field>
+            <field name="email_to">{{ object.partner_id.email }}</field>
+            <field name="subject">Action Required: Subscription Renewal Notification</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="body_html" type="html">
+                <div class="container">
+                    Dear <t t-esc="object.partner_id.name"/>,<br/><br/>
+                    Your subscription for <t t-foreach="object.order_line" t-as="line">
+                        <t t-esc="line.product_id.name"/>
+                    </t>
+                    is set to renew automatically on <t t-esc="object.next_invoice_date"/>. A new invoice will be generated for the renewal.<br/><br/>
+                    If you have any questions or need assistance, please contact us at <t t-esc="object.company_id.email"/>
+                    <br/><br/>Thank you,<br/>
+                    <t t-esc="object.company_id.name"/>
+                </div>
+        </field>
+    </record>
+<!-- </data> -->
+</odoo>

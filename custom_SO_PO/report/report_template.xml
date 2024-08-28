@@ -1,0 +1,1078 @@
+<odoo>
+    <template id="report_saleorder_cus">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="row " style="font-family: Arial, Helvetica, sans-serif;">
+                        <div class="col-4 ">
+                            <img t-if="doc.company_id.logo"
+                                t-att-src="image_data_uri(doc.company_id.logo)"
+                                style="max-height: 100px;" alt="Logo" />
+                        </div>
+                        <div class="col-8 text-start">
+                            <div>
+                                <strong>
+                                    <span t-field="doc.company_id.name" />
+                                </strong>
+                            </div>
+                            <div>
+                                Trụ sở chính-HO: No. 74 Nguyen Khang, Yen Hoa, Cau Giay, Hanoi
+                            </div>
+                            <div>
+                                Chi nhánh-Branch: Le Chan, Hai Phong
+                            </div>
+                            <div>
+                                Điện thoại-Tel: 0243 2020 175/ 0911 741 551
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row zero_min_height mt-4">
+                        <div class="col-12">
+                            <div style="border-bottom: 1px solid #ccc;" />
+                        </div>
+                    </div>
+                    <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+                    <t t-set="forced_vat" t-value="doc.fiscal_position_id.foreign_vat" /> <!--
+                            So
+                            that it appears in the footer of the report instead of the company VAT if it's
+                            set -->
+                    <div class="row mt-5 mb-1" style="font-family: Arial, Helvetica, sans-serif;">
+                        <div class="col-6">
+
+                        </div>
+                        <div class="col-6">
+                            <div>
+                                Người nhận-Recipient:
+                            </div>
+                            <div> Công ty-Company: <span t-field="doc.partner_id" />
+                            </div>
+                            <div> Địa chỉ-Address: <span t-field="doc.company_id.street" />
+                            </div>
+                            <div> Email: <span t-field="doc.company_id.email" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="page" style="font-family: Arial, Helvetica, sans-serif;">
+                        <div class="oe_structure" />
+                        <h2>
+                            <strong>Báo giá/Quotation # <span t-field="doc.name" /></strong>
+                        </h2>
+
+                        <div class="row mt-4 mb-2" id="informations"
+                            style="font-family: Arial, Helvetica, sans-serif;">
+                            <div t-if="doc.date_order" class="col-auto col-4 mw-100 mb-2"
+                                name="informations_date">
+                                <strong t-if="doc.state in ['draft', 'sent']">Ngày báo
+                                    giá-Quotation
+                                    Date:</strong>
+                                <strong t-else="">Order Date:</strong>
+                                <br />
+                                <span class="m-0" t-field="doc.date_order"
+                                    t-options="{&quot;widget&quot;: &quot;date&quot;}">
+                                    2023-12-31</span>
+                            </div>
+                            <div t-if="doc.validity_date and doc.state in ['draft', 'sent']"
+                                class="col-auto col-4 mw-100 mb-2" name="expiration_date">
+                                <strong>Ngày hiệu lực-Expiration:</strong>
+                                <br />
+                                <span class="m-0" t-field="doc.validity_date">2023-12-31</span>
+                            </div>
+                            <div t-if="doc.user_id.name" class="col-auto col-4 mw-100 mb-2">
+                                <strong>Phụ trách kinh doanh-Salesperson:</strong>
+                                <br />
+                                <span class="m-0" t-field="doc.user_id">Mitchell Admin</span>
+                            </div>
+                        </div>
+
+
+                        <!-- Is there a discount on at least one line? -->
+                        <t t-set="lines_to_report" t-value="doc._get_order_lines_to_report()" />
+                        <t t-set="display_discount"
+                            t-value="any(l.discount for l in lines_to_report)" />
+
+                        <div class="oe_structure" />
+                        <div style="font-weight: bold;">
+
+                            A. Thông tin về sản phẩm, dịch vụ, số lượng và giá cả như ở
+                            dưới/ Products &amp; Services description, quantity and price as
+                            below
+                        </div>
+                        <table class="table table-sm o_main_table table-responsive"
+                            style="font-family: Arial, Helvetica, sans-serif;">
+                            <!-- In case we want to repeat the header, remove "display:
+                                    table-row-group" -->
+                            <thead>
+                                <tr>
+                                    <th
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 40px "
+                                        name="th_no">
+                                        <div>STT</div>
+                                        <div>No.</div>
+                                    </th>
+                                    <th
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 150px;"
+                                        name="th_product">
+                                        <div>Sản phẩm</div>
+                                        <div>Products</div>
+                                    </th>
+                                    <th
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle;"
+                                        name="th_description">
+                                        <div>Mô tả</div>
+                                        <div>Description</div>
+                                    </th>
+                                    <th
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;"
+                                        name="th_quantity">
+                                        <div>Số lượng</div>
+                                        <div>Quantity</div>
+                                    </th>
+                                    <th
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;"
+                                        name="th_priceunit">
+                                        <div>Đơn giá</div>
+                                        <div>Unit Price</div>
+                                    </th>
+                                    <th
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;"
+                                        name="th_discount" t-if="display_discount">
+                                        <div>Chiết khấu</div>
+                                        <div>Disc.%</div>
+                                    </th>
+                                    <th
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 80px;"
+                                        name="th_taxes">
+                                        <div>Thuế</div>
+                                        <div>VAT</div>
+                                    </th>
+                                    <th
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;"
+                                        name="th_subtotal">
+                                        <div>Thành tiền</div>
+                                        <div>Amount</div>
+                                    </th>
+                                    <th
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;"
+                                        name="th_duration">
+                                        <div>Thời gian</div>
+                                        <div>Delivery time</div>
+                                    </th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody class="sale_tbody" style="border-top: none;">
+                                <t t-set="current_subtotal" t-value="0" />
+                                <t t-set="index" t-value="0" />
+                                <t t-set="tax" t-value="10" />
+                                <t t-set="taxamount" t-value="0" />
+                                <t t-set="totalamount" t-value="0" />
+                                <t t-set="totalprice" t-value="0" />
+                                <t t-foreach="lines_to_report" t-as="line">
+
+                                    <t t-set="current_subtotal"
+                                        t-value="current_subtotal + line.price_subtotal" />
+                                    <t t-set="totalprice" t-value="totalprice + line.price_total" />
+                                    <tr
+                                        t-att-class="'text-uppercase fw-bold o_line_section' if line.display_type == 'line_section' else 'text-uppercase o_line_note' if line.display_type == 'line_note' else ''">
+                                        <t t-if="not line.display_type">
+                                            <t t-set="index" t-value="index + 1" />
+                                            <!--<t
+                                            t-set="amountprice"
+                                            t-value="line.quantity*line.price_unit"/>-->
+                                            <td
+                                                style="border: 1px solid #ccc; text-align: center; vertical-align: middle;"
+                                                name="td_no">
+                                                <span t-esc="index" />
+                                            </td>
+                                            <td style="border: 1px solid #ccc;" class="text-start"
+                                                name="td_name">
+                                                <span t-field="line.product_id">Bacon Burger</span>
+                                            </td>
+                                            <td style="border: 1px solid #ccc;" name="td_name">
+                                                <div class="text-start" t-field="line.name">Bacon
+                                                    Burger</div>
+                                                <div class="text-end">
+                                                    <img t-if="line.product_id.image_128"
+                                                        t-att-src="image_data_uri(line.product_id.image_128)"
+                                                        style="max-height: 100px;" alt="ProductImg" />
+                                                </div>
+                                            </td>
+                                            <td style="border: 1px solid #ccc;" name="td_quantity"
+                                                class="text-end">
+                                                <span t-field="line.product_uom_qty">3</span>
+                                                <span t-field="line.product_uom">units</span>
+                                                <span t-if="line.product_packaging_id"> (<span
+                                                        t-field="line.product_packaging_qty"
+                                                        t-options="{&quot;widget&quot;: &quot;integer&quot;}" /> <span
+                                                        t-field="line.product_packaging_id" /> ) </span>
+                                            </td>
+                                            <td style="border: 1px solid #ccc;" name="td_priceunit"
+                                                class="text-end">
+                                                <span t-field="line.price_unit"
+                                                    t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}">
+                                                    3</span>
+                                            </td>
+                                            <td style="border: 1px solid #ccc;"
+                                                t-if="display_discount" class="text-end">
+                                                <span t-field="line.discount">-</span>
+                                            </td>
+                                            <td style="border: 1px solid #ccc;" name="td_taxes"
+                                                class="text-end">
+                                                <t t-if="line.tax_id">
+                                                    <span
+                                                        t-out="', '.join(map(lambda x: (x.name), line.tax_id))">
+                                                        Tax 15%
+                                                    </span>
+
+                                                </t>
+                                                <t t-else="">
+                                                    <span>KCT</span>
+                                                </t>
+
+                                            </td>
+                                            <td style="border: 1px solid #ccc;"
+                                                t-if="not line.is_downpayment" name="td_subtotal"
+                                                class="text-end o_price_total">
+                                                <span t-field="line.price_subtotal">27.00</span>
+                                                <t t-set="totalamount"
+                                                    t-value="(totalamount + line.price_subtotal)" />
+                                            </td>
+                                            <td style="border: 1px solid #ccc;" class="text-end ">
+                                                <t t-if="line.customer_lead">
+                                                    <span t-field="line.customer_lead"
+                                                        t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}">
+                                                        12-24</span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span />
+                                                </t>
+                                            </td>
+                                        </t>
+                                        <t t-elif="line.display_type == 'line_section'">
+                                            <t t-set="index" t-value="0" />
+                                            <td
+                                                style="border: 1px solid #ccc; vertical-align: middle;"
+                                                name="td_section_line" colspan="99">
+                                                <span t-field="line.name">A section title</span>
+                                            </td>
+                                            <t t-set="current_section" t-value="line" />
+                                            <t t-set="current_subtotal" t-value="0" />
+                                        </t>
+                                        <t t-elif="line.display_type == 'line_note'">
+                                            <td
+                                                style="border: 1px solid #ccc; vertical-align: middle;"
+                                                name="td_note_line" colspan="99">
+                                                <span t-field="line.name">A note, whose
+                                                    content
+                                                    usually applies to the section or
+                                                    product above.</span>
+                                            </td>
+                                        </t>
+                                    </tr>
+
+                                </t>
+                                <t t-set="taxamount" t-value="totalprice - totalamount" />
+                                <tr>
+                                    <td class="text-end " colspan="4"
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">Tổng
+                                        cộng - Total Amount </td>
+                                    <td class="text-end" colspan="4"
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">
+                                        <span t-esc="totalamount"
+                                            t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}" />
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end" colspan="4"
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">Thuế
+                                        GTGT-VAT </td>
+                                    <td class="text-end" colspan="4"
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">
+                                        <span t-esc="taxamount"
+                                            t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}" />
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end" colspan="4"
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">Tổng
+                                        giá thanh toán - Grand total </td>
+                                    <td class="text-end" colspan="4"
+                                        style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">
+                                        <span t-esc="totalprice"
+                                            t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}" />
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div>
+                            <t t-set="has_option_discount"
+                                t-value="any(option.discount != 0.0 for option in doc.sale_order_option_ids)" />
+                            <div name="h_optional_products" style="font-weight: bold;">
+                                <span>B. Dịch vụ tuỳ chọn/Option Services</span>
+                            </div>
+                            <table name="table_optional_products"
+                                class="table table-sm table-responsive"
+                                style="font-family: Arial, Helvetica, sans-serif;">
+                                <thead class="fw-bold">
+                                    <tr>
+                                        <th
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 40px "
+                                            name="th_no">
+                                            <div>STT</div>
+                                            <div>No.</div>
+                                        </th>
+                                        <th
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 150px"
+                                            name="th_product">
+                                            <div>Sản phẩm</div>
+                                            <div>Products</div>
+                                        </th>
+                                        <th
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle;"
+                                            name="th_description">
+                                            <div>Mô tả</div>
+                                            <div>Description</div>
+                                        </th>
+                                        <th
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;"
+                                            name="th_quantity">
+                                            <div>Số lượng</div>
+                                            <div>Quantity</div>
+                                        </th>
+                                        <th
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;"
+                                            name="th_priceunit">
+                                            <div>Đơn giá</div>
+                                            <div>Unit Price</div>
+                                        </th>
+                                        <th
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;"
+                                            name="th_discount" t-if="display_discount">
+                                            <div>Chiết khấu</div>
+                                            <div>Disc.%</div>
+                                        </th>
+                                        <th
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 80px;"
+                                            name="th_taxes">
+                                            <div>Thuế</div>
+                                            <div>VAT</div>
+                                        </th>
+                                        <th
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;"
+                                            name="th_subtotal">
+                                            <div>Thành tiền</div>
+                                            <div>Amount</div>
+                                        </th>
+                                        <th
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;"
+                                            name="th_duration">
+                                            <div>Thời gian</div>
+                                            <div>Duration</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="sale_tbody" style="border-top: none;">
+                                    <t t-set="index" t-value="0" />
+                                    <t t-set="amountprice" t-value="0" />
+                                    <t t-set="tax" t-value="10" />
+                                    <t t-set="taxamount" t-value="0" />
+                                    <t t-set="totalamount" t-value="0" />
+                                    <t t-set="totalprice" t-value="0" />
+                                    <tr t-foreach="doc.sale_order_option_ids" t-as="option">
+                                        <t t-set="index" t-value="index + 1" />
+                                        <t t-set="amountprice"
+                                            t-value="option.quantity*option.price_unit" />
+                                        <td
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle;">
+                                            <span t-esc="index">1</span>
+                                        </td>
+                                        <td style="border: 1px solid #ccc;" class="text-start"
+                                            name="td_option_name">
+                                            <span t-field="option.product_id">Extra Chips</span>
+                                        </td>
+                                        <td style="border: 1px solid #ccc;" name="td_option_name">
+                                            <div class="text-start" t-field="option.name">Extra
+                                                Chips</div>
+                                            <div class="text-end">
+                                                <img t-if="option.product_id.image_128"
+                                                    t-att-src="image_data_uri(option.product_id.image_128)"
+                                                    style="max-height: 100px;" alt="ProductImg" />
+                                            </div>
+                                        </td>
+                                        <td style="border: 1px solid #ccc;" class="text-end"
+                                            name="td_option_quantity">
+                                            <span t-field="option.quantity">Extra Chips</span>
+                                            <span t-field="option.uom_id">Đơn vị</span>
+                                        </td>
+                                        <!--<td
+                                        style="border: 1px solid #ccc;" t-if="has_option_discount"
+                                        name="td_option_discount"
+                                        groups="product.group_discount_per_so_line">-->
+                                        <!--    <strong t-if="option.discount != 0.0"
+                                        class="text-info">-->
+                                        <!--        <t t-out="((option.discount % 1) and '%s' or '%d') %
+                                        option.discount">-->
+                                        <!--        -</t>% </strong>-->
+                                        <!--</td>-->
+                                        <td style="border: 1px solid #ccc;" class="text-end"
+                                            name="td_option_price_unit">
+
+                                            <div t-field="option.price_unit"
+                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"
+                                                t-att-style="option.discount and 'text-decoration: line-through' or None"
+                                                t-att-class="option.discount and 'text-danger' or None">
+                                                1.5</div>
+                                            <div t-if="option.discount">
+                                                <t
+                                                    t-out="'%.2f' % ((1-option.discount / 100.0) * option.price_unit)"> </t>
+                                            </div>
+                                            <!--<t
+                                            t-set="totalamount" t-value="totalamount +
+                                            option.price_unit" />-->
+                                        </td>
+                                        <td style="border: 1px solid #ccc;" t-if="display_discount"
+                                            class="text-end">
+                                            <span t-field="option.discount">-</span>
+                                        </td>
+                                        <td style="border: 1px solid #ccc;" name="td_taxes"
+                                            class="text-end">
+                                            <span t-esc="tax" />% <t t-set="taxamount"
+                                                t-value="taxamount + (tax / 100) * option.price_unit" />
+                                        </td>
+                                        <td style="border: 1px solid #ccc;" name="td_subtotal"
+                                            class="text-end o_price_total">
+                                            <div
+                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"
+                                                t-att-style="option.discount and 'text-decoration: line-through' or None"
+                                                t-att-class="option.discount and 'text-danger' or None"
+                                                t-esc="amountprice">27.00</div>
+                                            <t t-set="totalamount"
+                                                t-value="(totalamount + amountprice)" />
+
+                                        </td>
+                                        <td style="border: 1px solid #ccc;" class="text-end ">
+                                            <span>12-24</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="text-end" colspan="4"
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">Tổng
+                                            cộng - Total Amount </td>
+                                        <td class="text-end" colspan="4"
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">
+                                            <span t-esc="totalamount"
+                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}" />
+                                            <t t-set="taxamount" t-value="(totalamount * 10)/ 100" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-end" colspan="4"
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">Thuế
+                                            GTGT-VAT </td>
+                                        <td class="text-end" colspan="4"
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle;">
+                                            <span t-esc="taxamount"
+                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}" />
+                                            <t t-set="totalprice" t-value="totalamount + taxamount" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-end" colspan="4"
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">Tổng
+                                            giá thanh toán - Grand total </td>
+                                        <td class="text-end" colspan="4"
+                                            style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">
+                                            <span t-esc="totalprice"
+                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}" />
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="oe_structure">​</div>
+                        </div>
+
+                        <div class="oe_structure" />
+
+                        <div style="font-family: Arial, Helvetica, sans-serif;">
+                            <div>
+                                <strong>Ghi chú - Remark: Báo giá không bao gồm:</strong>
+                            </div>
+                            <ol>
+                                <li>Chi phí đi lại, ăn ở ngoài thành phố Hà Nội</li>
+                                <li>Nhập liệu dữ liệu giao dịch</li>
+                                <li>Thay thế, sửa chữa thiết bị hết thời hạn bảo hành</li>
+                                <li>Các yêu cầu phát sinh ngoài phạm vi báo giá</li>
+                            </ol>
+
+                            <div>
+                                <strong>Điều khoản thanh toán:</strong>
+                            </div>
+                            <div>Đặt cọc - Deposit: 50% giá trị Đơn hàng, 100% giá trị dịch vụ
+                                Tuỳ chọn</div>
+                            <div>Thanh toán - Payment: 50% giá trị còn lại khi hai bên ký Biên
+                                bản Bàn giao</div>
+
+                        </div>
+
+                        <div style="font-family: Arial, Helvetica, sans-serif;"
+                            class="row mt32 mb32" id="informations">
+                            <div class="col-6 mw-100 mb-2" style="text-align: center;">
+                                <p style="font-weight: bold;">Đại diện bên Cung cấp - For
+                                    Provider</p>
+
+                            </div>
+                            <div class="col-6 mw-100 mb-2" style="text-align: center; ">
+                                <p style="font-weight: bold;">Đại diện Khách hàng - For Client</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_saleorder2">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout" t-translation="off">
+                        <div class="row " style="font-family: Arial, Helvetica, sans-serif;">
+                            <div class="col-4 ">
+                                <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 100px;" alt="Logo"/>
+                            </div>
+                            <div class="col-8 text-start">
+                                <div>
+                                    <strong>
+                                        <span t-field="doc.company_id.name"/>
+                                    </strong>
+                                </div>
+                                <div>
+                                    Trụ sở chính-HO: No. 74 Nguyen Khang, Yen Hoa, Cau Giay, Hanoi
+                                </div>
+                                <div>
+                                    Chi nhánh-Branch: Le Chan, Hai Phong
+                                </div>
+                                <div>
+                                    Điện thoại-Tel: 0243 2020 175/ 0911 741 551
+                                </div>
+    
+                            </div>
+                        </div>
+                        <div class="row zero_min_height mt-4">
+                            <div class="col-12">
+                                <div style="border-bottom: 1px solid #ccc;"/>
+                            </div>
+                        </div>
+                        <!--<t
+                        t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>-->
+                        <!--<t
+                        t-set="forced_vat" t-value="doc.fiscal_position_id.foreign_vat"/> -->
+                        <!--
+                                         So
+                                         that it appears in the footer of the report instead of the company VAT if it's
+                                         set -->
+                        <div class="row mt-5 mb-1" style="font-family: Arial, Helvetica, sans-serif;">
+                            <div class="col-6">
+    
+                            </div>
+                            <div class="col-6">
+                                <table style="width: 100%; border: 1px solid #fff">
+                                    <tr>
+                                        <td>Người nhận-Recipient:</td>
+                                        <td><span t-field="doc.opportunity_id.partner_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Công ty-Company:</td>
+                                        <td><span t-field="doc.opportunity_id.partner_id.company_name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Địa chỉ-Address:</td>
+                                        <td><span t-field="doc.opportunity_id.partner_id.street"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td><span t-field="doc.opportunity_id.email_from"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Điện thoại-Tel:</td>
+                                        <td><span t-field="doc.opportunity_id.phone"/></td>
+                                    </tr>
+                                </table>
+    
+                            </div>
+                        </div>
+                        <p/>
+                        <div class="page" style="font-family: Arial, Helvetica, sans-serif;">
+                            <div class="oe_structure"/>
+                            <h2>
+                                <strong>Báo giá/Quotation # <span t-field="doc.name"/></strong>
+                            </h2>
+    
+                            <div class="row mt-4" id="informations" style="font-family: Arial, Helvetica, sans-serif;">
+                                <div t-if="doc.date_order" class="col-auto col-4 mw-100 mb-2" name="informations_date">
+                                    <strong t-if="doc.state in ['draft', 'sent']">Ngày báo
+                                        giá-Quotation
+                                        Date:</strong>
+                                    <strong t-else="">Order Date:</strong>
+                                    <br/>
+                                    <span class="m-0" t-field="doc.date_order" t-options="{&quot;widget&quot;: &quot;date&quot;}">
+                                        2023-12-31</span>
+                                </div>
+                                <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto col-4 mw-100 mb-2" name="expiration_date">
+                                    <strong>Ngày hiệu lực-Expiration:</strong>
+                                    <br/>
+                                    <span class="m-0" t-field="doc.validity_date">2023-12-31</span>
+                                </div>
+                                <div t-if="doc.user_id.name" class="col-auto col-4 mw-100 mb-2">
+                                    <strong>Phụ trách kinh doanh-Salesperson:</strong>
+                                    <br/>
+                                    <span class="m-0" t-field="doc.user_id">Mitchell Admin</span>
+                                </div>
+                            </div>
+    
+                            <!-- Is there a discount on at least one line? -->
+                            <t t-set="lines_to_report" t-value="doc._get_order_lines_to_report()"/>
+                            <t t-set="display_discount" t-value="any(l.discount for l in lines_to_report)"/>
+    
+                            <div class="oe_structure"/>
+    
+                            <table class="table table-sm o_main_table" style="font-family: Arial, Helvetica, sans-serif;">
+    
+                                <tbody class="sale_tbody" style="border-top: none;">
+                                    <t t-set="current_subtotal" t-value="0"/>
+                                    <t t-set="index" t-value="0"/>
+                                    <t t-set="tax" t-value="10"/>
+                                    <t t-set="taxamount" t-value="0"/>
+                                    <t t-set="totalamount" t-value="0"/>
+                                    <t t-set="totalprice" t-value="0"/>
+                                    <t t-foreach="lines_to_report" t-as="line">
+                                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"/>
+                                        <t t-set="totalprice" t-value="totalprice + line.price_total"/>
+                                        <tr t-att-class="'text-uppercase fw-bold o_line_section' if line.display_type == 'line_section' else 'o_line_note' if line.display_type == 'line_note' else ''">
+                                            <t t-if="not line.display_type">
+                                                <t t-set="index" t-value="index + 1"/>
+                                                <!--<t
+                                                         t-set="amountprice"
+                                                         t-value="line.quantity*line.price_unit"/>-->
+                                                <td style="border: 1px solid #ccc; text-align: center; vertical-align: middle;" name="td_no">
+                                                    <span t-esc="index"/>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" class="text-start" name="td_name">
+                                                    <div t-field="line.product_id">Bacon Burger</div>
+                                                    <div class="text-center">
+                                                        <img t-if="line.product_id.image_128" t-att-src="image_data_uri(line.product_id.image_128)" style="max-height: 100px;" alt="ProductImg"/>
+                                                    </div>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" name="td_name">
+                                                    <div class="text-start" t-field="line.name">Bacon
+                                                        Burger</div>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" name="td_quantity" class="text-end">
+                                                    <span t-field="line.product_uom_qty">3</span>
+                                                    <span t-field="line.product_uom">units</span>
+                                                    <span t-if="line.product_packaging_id"> (<span t-field="line.product_packaging_qty" t-options="{&quot;widget&quot;: &quot;integer&quot;}"/> <span t-field="line.product_packaging_id"/> ) </span>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" name="td_priceunit" class="text-end">
+                                                    <span t-field="line.price_unit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}">
+                                                        3</span>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" t-if="display_discount" class="text-end">
+                                                    <!-- <span t-field="line.discount">-</span> -->
+                                                    <strong t-if="line.discount != 0.0" class="text-info">
+                                                      <t t-out="((line.discount % 1) and '%s' or '%d')                                            %                                                 line.discount">
+                                                      -</t>% </strong>
+                                                      
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" name="td_taxes" class="text-end">
+                                                    <t t-if="line.tax_id">
+                                                        <span t-out="', '.join(map(lambda x: (x.name), line.tax_id))">
+                                                            Tax 15%
+                                                        </span>
+    
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span>KCT</span>
+                                                    </t>
+    
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
+                                                    <span t-field="line.price_subtotal">27.00</span>
+                                                    <t t-set="totalamount" t-value="(totalamount + line.price_subtotal)"/>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" class="text-end ">
+                                                    <t t-if="line.customer_lead">
+                                                        <span t-field="line.customer_lead" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}">
+                                                            12-24</span>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span/>
+                                                    </t>
+                                                </td>
+                                            </t>
+                                            <t t-elif="line.display_type == 'line_note'">
+                                                <td style="border: 1px solid #fff; border-bottom: 1px solid #ccc; vertical-align: middle; padding-top: 40px;" name="td_note_line" colspan="99">
+                                                    <strong>
+                                                        <span t-field="line.name">A note, whose
+                                                            content
+                                                            usually applies to the section or
+                                                            product above.</span>
+                                                    </strong>
+                                                </td>
+                                                <tr>
+                                                    <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 40px " name="th_no">
+                                                        <div>STT</div>
+                                                        <div>No.</div>
+                                                    </th>
+                                                    <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 150px;" name="th_product">
+                                                        <div>Sản phẩm</div>
+                                                        <div>Products</div>
+                                                    </th>
+                                                    <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle;" name="th_description">
+                                                        <div>Mô tả</div>
+                                                        <div>Description</div>
+                                                    </th>
+                                                    <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;" name="th_quantity">
+                                                        <div>Số lượng</div>
+                                                        <div>Quantity</div>
+                                                    </th>
+                                                    <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;" name="th_priceunit">
+                                                        <div>Đơn giá</div>
+                                                        <div>Unit Price</div>
+                                                    </th>
+                                                    <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;" name="th_discount" t-if="display_discount">
+                                                        <div>Chiết khấu</div>
+                                                        <div>Disc.%</div>
+                                                    </th>
+                                                    <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 80px;" name="th_taxes">
+                                                        <div>Thuế</div>
+                                                        <div>VAT</div>
+                                                    </th>
+                                                    <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;" name="th_subtotal">
+                                                        <div>Thành tiền</div>
+                                                        <div>Amount</div>
+                                                    </th>
+                                                    <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;" name="th_duration">
+                                                        <div>Thời gian</div>
+                                                        <div>Delivery time</div>
+                                                    </th>
+                                                </tr>
+                                                <t t-set="current_section" t-value="line"/>
+                                                <t t-set="current_subtotal" t-value="0"/>
+                                                <t t-set="totalprice" t-value="0"/>
+                                            </t>
+                                            <t t-elif="line.display_type == 'line_section'">
+                                                <t t-set="index" t-value="0"/>
+                                                <td style="border: 1px solid #ccc; vertical-align: middle;" name="td_section_line" colspan="99">
+                                                    <span t-field="line.name">A section title</span>
+                                                </td>
+                                            </t>
+    
+                                        </tr>
+                                        <t t-if="current_section and (line_last or doc.order_line[line_index+1].display_type == 'line_note') and not line.is_downpayment">
+    
+                                            <t t-set="taxamount" t-value="totalprice - current_subtotal"/>
+                                            <tr>
+                                                <td class="text-end " colspan="4" style="border: 1px solid #ccc; text-align: center; vertical-align: middle;">
+                                                    <b>Tổng cộng</b> - Total Amount </td>
+    
+                                                <td class="text-end" name="td_section_subtotal" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;" colspan="99">
+                                                    <!--<strong
+                                                    class="mr16">Subtotal</strong>-->
+                                                    <span t-out="current_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-end " colspan="4" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; "><b>Chiết khấu</b> - Discount</td>
+    
+                                                <td class="text-end" name="td_section_subtotal" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; " colspan="99">
+                                                    <!--<strong
+                                                    class="mr16">Subtotal</strong>-->
+                                                    <!--<span t-esc="line.amount_undiscounted" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-end" colspan="4" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; "><b>Thuế GTGT</b> - VAT </td>
+                                                <td class="text-end" style="border: 1px solid #ccc; text-align: center; vertical-align: middle;" colspan="99">
+                                                    <span t-esc="taxamount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+    
+                                                </td>
+                                            </tr>
+                                            <tr class="is-subtotal text-end">
+                                                <td class="text-end" colspan="4" style="border: 1px solid #ccc; text-align: center; vertical-align: middle;"><b>Tổng giá thanh toán</b> - Grand total </td>
+                                                <td class="text-end" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold; " colspan="99">
+                                                    <span t-esc="totalprice" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <div style="padding: 15px"> </div>
+                            <div><b>[Bảng]Tổng cộng </b>- Total Amount</div>
+                            <table class="table table-sm" style="width: 500px;">
+                                    <t t-set="current_subtotal" t-value="0"/>
+                                    <t t-set="display_subtotal" t-value="0"/>
+                                    <t t-set="index" t-value="0"/>
+                                    <tr t-foreach="lines_to_report" t-as="line">
+                                        <t t-if="line.display_type == 'line_note'">
+                                            <!--<tr>-->
+                                                <!-- Cột bên trái hiển thị line.name -->
+                                            <!--    <th style="border: 1px solid #ccc; text-align: left;">-->
+                                            <!--        <span t-esc="line.name"/>-->
+                                            <!--    </th>-->
+                                                <!-- Cột bên phải hiển thị subtotal trước khi reset -->
+                                            <!--    <td class="text-end" name="td_section_subtotal" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">-->
+                                            <!--        <span t-out="display_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>-->
+                                            <!--    </td>-->
+                                            <!--</tr>-->
+                                            <t t-set="index" t-value="index + 1"/>
+                                            <t t-set="current_section" t-value="line"/>
+                                            <t t-set="display_subtotal" t-value="current_subtotal"/>
+                                            <t t-set="current_subtotal" t-value="0"/>
+                                        </t>
+                                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"/>
+                                        <t t-if="current_section and (line_last or doc.order_line[line_index+1].display_type == 'line_note') and not line.is_downpayment">
+                                            <tr>
+                                                <!-- Lặp lại current_section name nếu cần -->
+                                                <td style="border: 1px solid #ccc; text-align: left;" colspan="1">
+                                                    <!--<span t-esc="current_section.name"/> -->
+                                                    Bảng <span t-esc="index"/>/Table <span t-esc="index"/>
+                                                </td>
+                                                <td class="text-end" name="td_section_subtotal" style="border: 1px solid #ccc; text-align: center; vertical-align: middle;" colspan="2">
+                                                    <span t-out="current_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                                </td>
+                                            </tr>
+                                            <t t-set="current_section" t-value="False"/>
+                                        </t>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start" style="border: 1px solid #ccc; text-align: center; vertical-align: middle;">
+                                                    <b>Tổng cộng</b> - Total Amount </td>
+    
+                                        <td class="text-end" name="td_section_subtotal" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">
+                                            <span t-esc="doc.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                         <td class="text-start" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; "><b>Chiết khấu</b> - Discount</td>
+    
+                                        <td class="text-end" name="td_section_subtotal" style="border: 1px solid #ccc; text-align: center; vertical-align: middle;">
+                                            <!--<span t-esc="(doc.amount_undiscounted)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>-->
+    
+                                            <span t-if="((doc.amount_undiscounted) - (doc.amount_untaxed)) &gt; 0" t-esc="(doc.amount_undiscounted) - (doc.amount_untaxed)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; "><b>Thuế GTGT</b> - VAT </td>
+                                        <td class="text-end" style="border: 1px solid #ccc; text-align: center; vertical-align: middle;">
+                                            <span t-esc="doc.amount_tax" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+    
+                                        </td>
+                                    </tr>
+                                    <tr class="is-subtotal text-end">
+                                        <td class="text-start" style="border: 1px solid #ccc; text-align: center; vertical-align: middle;"><b>Tổng giá thanh toán</b> - Grand total </td>
+                                        <td class="text-end" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">
+                                            <span t-esc="doc.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+    
+                                        </td>
+                                    </tr>
+                            </table>
+                            <p/>
+                            <div>
+                                <t t-set="has_option_discount" t-value="any(doc.sale_order_option_ids)"/>
+                                <div t-if="has_option_discount">
+                                    <table name="table_optional_products" class="table table-sm " style="font-family: Arial, Helvetica, sans-serif;">
+                                        <thead class="fw-bold">
+                                            <tr>
+                                                <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 40px " name="th_no">
+                                                    <div>STT</div>
+                                                    <div>No.</div>
+                                                </th>
+                                                <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 150px" name="th_product">
+                                                    <div>Sản phẩm</div>
+                                                    <div>Products</div>
+                                                </th>
+                                                <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle;" name="th_description">
+                                                    <div>Mô tả</div>
+                                                    <div>Description</div>
+                                                </th>
+                                                <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;" name="th_quantity">
+                                                    <div>Số lượng</div>
+                                                    <div>Quantity</div>
+                                                </th>
+                                                <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;" name="th_priceunit">
+                                                    <div>Đơn giá</div>
+                                                    <div>Unit Price</div>
+                                                </th>
+                                                <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;" name="th_discount" t-if="display_discount">
+                                                    <div>Chiết khấu</div>
+                                                    <div>Disc.%</div>
+                                                </th>
+                                                <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 80px;" name="th_taxes">
+                                                    <div>Thuế</div>
+                                                    <div>VAT</div>
+                                                </th>
+                                                <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;" name="th_subtotal">
+                                                    <div>Thành tiền</div>
+                                                    <div>Amount</div>
+                                                </th>
+                                                <th style="border: 1px solid #ccc; text-align: center; vertical-align: middle; width: 100px;" name="th_duration">
+                                                    <div>Thời gian</div>
+                                                    <div>Duration</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="sale_tbody" style="border-top: none;">
+                                            <t t-set="index" t-value="0"/>
+                                            <t t-set="amountprice" t-value="0"/>
+                                            <t t-set="tax" t-value="10"/>
+                                            <t t-set="taxamount" t-value="0"/>
+                                            <t t-set="totalamount" t-value="0"/>
+                                            <t t-set="totalprice" t-value="0"/>
+                                            <tr t-foreach="doc.sale_order_option_ids" t-as="option">
+                                                <t t-set="index" t-value="index + 1"/>
+                                                <t t-set="amountprice" t-value="option.quantity*option.price_unit"/>
+                                                <td style="border: 1px solid #ccc; text-align: center; vertical-align: middle;">
+                                                    <span t-esc="index">1</span>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" class="text-start" name="td_option_name">
+                                                    <span t-field="option.product_id">Extra Chips</span>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" name="td_option_name">
+                                                    <div class="text-start" t-field="option.name">Extra
+                                                        Chips</div>
+                                                    <div class="text-end">
+                                                        <img t-if="option.product_id.image_128" t-att-src="image_data_uri(option.product_id.image_128)" style="max-height: 100px;" alt="ProductImg"/>
+                                                    </div>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" class="text-end" name="td_option_quantity">
+                                                    <span t-field="option.quantity">Extra Chips</span>
+                                                    <span t-field="option.uom_id">Đơn vị</span>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" t-if="has_option_discount" name="td_option_discount" groups="product.group_discount_per_so_line">
+                                                   <strong t-if="option.discount != 0.0" class="text-info">
+                                                       <t t-out="((option.discount % 1) and '%s' or '%d')                                             %                                                  option.discount">
+                                                       -</t>% </strong>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" class="text-end" name="td_option_price_unit">
+    
+                                                    <div t-field="option.price_unit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}" t-att-style="option.discount and 'text-decoration: line-through' or None" t-att-class="option.discount and 'text-danger' or None">
+                                                        1.5</div>
+                                                    <div t-if="option.discount">
+                                                        <t t-out="'%.2f' % ((1-option.discount / 100.0) * option.price_unit)"> </t>
+                                                    </div>
+                                                    <!--<t
+                                                         t-set="totalamount" t-value="totalamount +
+                                                         option.price_unit" />-->
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" t-if="display_discount" class="text-end">
+                                                    <span t-field="option.discount">-</span>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" name="td_taxes" class="text-end">
+                                                    <span t-esc="tax"/>% <t t-set="taxamount" t-value="taxamount + (tax / 100) * option.price_unit"/>
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" name="td_subtotal" class="text-end o_price_total">
+                                                    <div t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}" t-att-style="option.discount and 'text-decoration: line-through' or None" t-att-class="option.discount and 'text-danger' or None" t-esc="amountprice">27.00</div>
+                                                    <t t-set="totalamount" t-value="(totalamount + amountprice)"/>
+    
+                                                </td>
+                                                <td style="border: 1px solid #ccc;" class="text-end ">
+                                                    <span>12-24</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-end " colspan="4" style="border: 1px solid #ccc; text-align: center; vertical-align: middle;">
+                                                    <b>Tổng cộng</b> - Total Amount </td>
+                                                <td class="text-end" colspan="99" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">
+                                                    <span t-esc="totalamount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                                    <t t-set="taxamount" t-value="(totalamount * 10)/ 100"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                 <td class="text-end " colspan="4" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; "><b>Chiết khấu</b> - Discount</td>
+                                                <td class="text-end" colspan="99" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">
+                                                    <span t-esc="totalamount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                                    <t t-set="taxamount" t-value="(totalamount * 10)/ 100"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                               <td class="text-end" colspan="4" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; "><b>Thuế GTGT</b> - VAT </td>
+                                                <td class="text-end" colspan="99" style="border: 1px solid #ccc; text-align: center; vertical-align: middle;">
+                                                    <span t-esc="taxamount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+                                                    <t t-set="totalprice" t-value="totalamount + taxamount"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-end" colspan="4" style="border: 1px solid #ccc; text-align: center; vertical-align: middle;"><b>Tổng giá thanh toán</b> - Grand total </td>
+                                                <td class="text-end" colspan="99" style="border: 1px solid #ccc; text-align: center; vertical-align: middle; font-weight: bold;">
+                                                    <span t-esc="totalprice" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
+    
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="oe_structure">​</div>
+                                </div>
+    
+                            </div>
+                            <div style="padding: 15px"> </div>
+                            <div class="oe_structure"/>
+                            <t t-if="doc.note">
+                                <div style="font-family: Arial, Helvetica, sans-serif;">
+                                    <t t-esc="doc.note"/>
+                                </div>
+                            </t>
+                            
+                            <div style="font-family: Arial, Helvetica, sans-serif; font-size: 13px;" class="row mt32 mb32" id="informations">
+                                <div class="col-6 mw-100 mb-2" style="text-align: left;">
+                                    <div style="font-weight: bold;">Đại diện bên Cung cấp - For
+                                        Provider</div>
+                                    <div style="margin-top: 70px">
+                                        <div class="col-2">
+                                            <div style="border-bottom: 1px solid black; margin: 2px;"/>
+                                        </div>
+                                        <!--<div t-field="doc.user_id"/>-->
+                                        <div><b>Nguyen Lan Huong</b></div>
+                                        <div><b>Accounts Manager</b></div>
+                                    </div>
+                                </div>
+                                <div class="col-6 mw-100 mb-2" style="text-align: left; ">
+                                    <div style="font-weight: bold;">Đại diện Khách hàng - For Client</div>
+                                    <div style="margin-top: 70px">
+                                        <div class="col-12">
+                                            <div style="border-bottom: 1px solid black;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+            <div t-attf-class="footer o_standard_footer ">
+                <div class="text-start" style="border-top: 1px solid black;">
+                    <!--<div t-if="report_type == 'pdf'" class="text-muted">-->
+                        <!--Page: <span class="page"/> / <span class="topage"/>-->
+                        <div style="font-family: Arial, Helvetica, sans-serif; font-size: 13px;">
+                                Tên tài khoản/Bank's Name: <strong>Cong ty TNHH Giai Phap va Dich Vu Cao Cap</strong>
+                            </div>
+                            <div style="font-family: Arial, Helvetica, sans-serif; font-size: 13px;">
+                                Số tài khoản/Bank's Account: 11001019662391 | Ngân hàng/Bank: MSB - Transaction Department Branch | Mã/SWIFT CODE : MCOBVNVX
+                        </div>
+                    <!--</div>-->
+                    <!--<div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">-->
+                    <!--</div>-->
+                </div>
+            </div>
+    </template>
+</odoo>

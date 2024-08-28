@@ -8,19 +8,20 @@ class ImexInventoryReport(models.Model):
     _description = "Imex Inventory Report"
     _auto = False
 
-    date_from = fields.Date(string="From Date")
-    date_to = fields.Date(string="To Date")
+    # date_from = fields.Date(string="From Date")
+    # date_to = fields.Date(string="To Date")
     product_id = fields.Many2one(comodel_name="product.product", readonly=True)
     product_uom = fields.Many2one(comodel_name="uom.uom", readonly=True)
-    product_category = fields.Many2one(
-        comodel_name="product.category", readonly=True)
+    product_category = fields.Many2one(comodel_name="product.category", readonly=True)
     location = fields.Many2one(comodel_name="stock.location", readonly=True)
     initial = fields.Float(readonly=True)
     initial_amount = fields.Float(readonly=True)
     product_in = fields.Float(readonly=True)
     product_in_amount = fields.Float(readonly=True)
+    product_weight_in = fields.Float(readonly=True)
     product_out = fields.Float(readonly=True)
     product_out_amount = fields.Float(readonly=True)
+    product_weight_out = fields.Float(readonly=True)
     balance = fields.Float(readonly=True)
     amount = fields.Float(readonly=True)
 
@@ -152,6 +153,11 @@ class ImexInventoryReport(models.Model):
                             ELSE 0 END) as product_in_amount,
                         sum(CASE WHEN 
                                 CAST(move_group_location.date AS date) >= %s 
+                                and move_group_location.location = move_group_location.location_dest_id
+                            THEN move_group_location.product_qty*product_weight
+                            ELSE 0 END) as product_weight_in,    
+                        sum(CASE WHEN 
+                                CAST(move_group_location.date AS date) >= %s 
                                 and move_group_location.location = move_group_location.location_id
                             THEN move_group_location.product_qty 
                             ELSE 0 END) as product_out,
@@ -159,7 +165,12 @@ class ImexInventoryReport(models.Model):
                                 CAST(move_group_location.date AS date) >= %s 
                                 and move_group_location.location = move_group_location.location_id
                             THEN move_group_location.product_qty*move_group_location.unit_cost
-                            ELSE 0 END) as product_out_amount
+                            ELSE 0 END) as product_out_amount,
+                        sum(CASE WHEN 
+                                CAST(move_group_location.date AS date) >= %s 
+                                and move_group_location.location = move_group_location.location_id
+                            THEN move_group_location.product_qty*product_weight
+                            ELSE 0 END) as product_weight_out
                     FROM(
                         SELECT 
                             move.date, move.product_id, 
@@ -168,6 +179,7 @@ class ImexInventoryReport(models.Model):
                             move.location_id, 
                             move.location_dest_id,                        
                             template.categ_id as product_category,
+                            template.weight as product_weight,
                             move.product_qty,
                             svl.unit_cost
                         FROM stock_move move
@@ -194,6 +206,7 @@ class ImexInventoryReport(models.Model):
                             move.location_id, 
                             move.location_dest_id,
                             template.categ_id as product_category,
+                            template.weight as product_weight,
                             move.product_qty,
                             svl.unit_cost
                         FROM stock_move move
@@ -233,6 +246,8 @@ class ImexInventoryReport(models.Model):
                       date_from,
                       date_from,
                       date_from,
+                      date_from,
+                      date_from,
                       locations,
                       product_ids,
                       product_category_ids,
@@ -250,6 +265,7 @@ class ImexInventoryReport(models.Model):
                         move.product_id, move.product_uom,
                         null as location,
                         template.categ_id as product_category,
+                        template.weight,
                         (sum(CASE WHEN 
                                 CAST(move.date AS date) < %s 
                                 and location_dest.usage = 'internal'
@@ -284,6 +300,11 @@ class ImexInventoryReport(models.Model):
                             ELSE 0 END) as product_in_amount,
                         sum(CASE WHEN 
                                 CAST(move.date AS date) >= %s  
+                                and location_dest.usage = 'internal'
+                            THEN move.product_qty*template.weight 
+                            ELSE 0 END) as product_weight_in,
+                        sum(CASE WHEN 
+                                CAST(move.date AS date) >= %s  
                                 and location.usage = 'internal'
                             THEN move.product_qty 
                             ELSE 0 END) as product_out,
@@ -291,7 +312,12 @@ class ImexInventoryReport(models.Model):
                                 CAST(move.date AS date) >= %s  
                                 and location.usage = 'internal'
                             THEN move.product_qty*svl.unit_cost 
-                            ELSE 0 END) as product_out_amount
+                            ELSE 0 END) as product_out_amount,
+                        sum(CASE WHEN 
+                                CAST(move.date AS date) >= %s  
+                                and location_dest.usage = 'internal'
+                            THEN move.product_qty*template.weight 
+                            ELSE 0 END) as product_weight_out
                     FROM stock_move move
                         LEFT JOIN stock_valuation_layer svl 
                             on move.id = svl.stock_move_id
@@ -313,11 +339,14 @@ class ImexInventoryReport(models.Model):
                     GROUP BY 
                         move.product_id,
                         move.product_uom,
-                        template.categ_id     
+                        template.categ_id,
+                        template.weight
                     ORDER BY move.product_id
                     ) as a
                 """
             params = (date_from,
+                      date_from,
+                      date_from,
                       date_from,
                       date_from,
                       date_from,
@@ -337,7 +366,7 @@ class ImexInventoryReport(models.Model):
         return res
 
     def report_details(self):
-        filters = self._context.get("filters")
+        filters = self._context.get("filters") or {}
         
         filters["product_ids"] = [(6, 0, self.product_id.ids)]
         return self.env["imex.inventory.details.report"].view_report_details(filters)

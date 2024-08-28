@@ -2,7 +2,7 @@
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 {
     "name":"Custom SO PO Stock",
-    "version":"17.0",
+    "version":"17.0.0.1.0",
     "category":"Warehouse",
     "summary":"warehouse sale order line product available availability warehouse product stock available availability warehouse location wise product availability warehouse sale order product quantity sale product availability warehouse product available quantity",
     "description":"""
@@ -21,6 +21,9 @@
             "security/ir.model.access.csv",
             "wizard/available_quantities_wizard_view.xml",
             "views/sale_order_view.xml",
+            "report/report_template.xml",
+            "report/report.xml",
+            "wizard/purchase_order_cancel.xml"
 	       ],
     'license':'OPL-1',
     'installable': True,

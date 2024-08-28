@@ -30,13 +30,16 @@
                 <field name="product_id" string="Sản phẩm"/>
                 <field name="product_uom" string="ĐVT" optional="show"/>
                 <field name="product_category" string="Danh mục" optional="hide"/>
+                <!-- <field name="product_weight" string="Khối lượng" optional="hide"/> -->
                 <field name="location" string="Vị trí" optional="show"/>
                 <field name="initial" string="Đầu kì" optional="show"/>
-                <field name="initial_amount" string="Initial Amount" optional="show"/>
+                <field name="initial_amount" string="Giá trị ban đầu" optional="show"/>
                 <field name="product_in" string="Số lượng nhập" optional="show"/>
                 <field name="product_in_amount" string="Tổng giá nhập" optional="show"/>
+                <field name="product_weight_in" string="Khối lượng nhập" optional="show"/>
                 <field name="product_out" string="Số lượng xuất" optional="show"/>
                 <field name="product_out_amount" string="Tổng giá xuất" optional="show"/>
+                <field name="product_weight_out" string="Khối lượng xuất" optional="show"/>
                 <field name="balance" string="Cuối kì" optional="show"/>
                 <field name="amount" string="Tổng giá trị" optional="show"/>
                 <button name="report_details" type="object" title="search" class="fa fa-search"/>
@@ -79,6 +82,9 @@
                             </th>
                             <th t-att-rowspan="2">
                                 <span>Category</span>
+                            </th>
+                            <th t-att-rowspan="2">
+                                <span>Weight</span>
                             </th>
                             <th t-att-rowspan="2">
                                 <span>Location</span>
@@ -135,6 +141,9 @@
                                 </td>
                                 <td>
                                     <t t-out="line.product_category.complete_name"/>
+                                </td>
+                                <td>
+                                    <t t-out="line.product_weight.complete_name"/>
                                 </td>
                                 <td>
                                     <t t-out="line.location.complete_name"/>

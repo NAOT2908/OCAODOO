@@ -37,7 +37,7 @@ class ProductTemplate(models.Model):
                     rec.detailed_type != 'product' or rec.qty_available > int(
                         rec.env['ir.config_parameter'].sudo().get_param(
                             'low_stocks_product_alert.min_low_stock_alert')) \
-                    else (True, '#ff3d3ddb')
+                    else (True, '#fdc6c6')
             else:
                 rec.alert_state = False
                 rec.color_field = 'white'
