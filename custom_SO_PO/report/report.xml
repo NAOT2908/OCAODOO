@@ -8,7 +8,7 @@
             <field name="report_name">custom_SO_PO.report_saleorder_cus</field>
             <field name="report_file">custom_SO_PO.report_saleorder_cus</field>
             <field name="print_report_name"></field>
-            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order" />
             <field name="binding_type">report</field>
         </record>
 
@@ -19,7 +19,119 @@
             <field name="report_name">custom_SO_PO.report_saleorder2</field>
             <field name="report_file">custom_SO_PO.report_saleorder2</field>
             <field name="print_report_name"></field>
-            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_stock_picking_bien_ban_giao_nhan" model="ir.actions.report">
+            <field name="name">Biên bản giao nhận</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">custom_SO_PO.report_stock_picking_bien_ban_giao_nhan</field>
+            <field name="report_file">custom_SO_PO.report_stock_picking_bien_ban_giao_nhan</field>
+            <field name="print_report_name"></field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_stock_picking_phieu_nhan_hang" model="ir.actions.report">
+            <field name="name">Phiếu nhận hàng</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">custom_SO_PO.report_stock_picking_phieu_nhan_hang</field>
+            <field name="report_file">custom_SO_PO.report_stock_picking_phieu_nhan_hang</field>
+            <field name="print_report_name"></field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_stock_picking_phieu_kiem_tra_chat_luong" model="ir.actions.report">
+            <field name="name">Phiếu kiểm tra chất lượng</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">custom_SO_PO.report_stock_picking_phieu_kiem_tra_chat_luong</field>
+            <field name="report_file">custom_SO_PO.report_stock_picking_phieu_kiem_tra_chat_luong</field>
+            <field name="print_report_name"></field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_stock_picking_phieu_luu_kho" model="ir.actions.report">
+            <field name="name">Phiếu lưu kho</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">custom_SO_PO.report_stock_picking_phieu_luu_kho</field>
+            <field name="report_file">custom_SO_PO.report_stock_picking_phieu_luu_kho</field>
+            <field name="print_report_name"></field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_stock_picking_phieu_lay_hang" model="ir.actions.report">
+            <field name="name">Phiếu lấy hàng</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">custom_SO_PO.report_stock_picking_phieu_lay_hang</field>
+            <field name="report_file">custom_SO_PO.report_stock_picking_phieu_lay_hang</field>
+            <field name="print_report_name"></field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_stock_picking_phieu_dong_goi" model="ir.actions.report">
+            <field name="name">Phiếu đóng gói</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">custom_SO_PO.report_stock_picking_phieu_dong_goi</field>
+            <field name="report_file">custom_SO_PO.report_stock_picking_phieu_dong_goi</field>
+            <field name="print_report_name"></field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_stock_picking_phieu_xuat_kho" model="ir.actions.report">
+            <field name="name">Phiếu xuất kho</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">custom_SO_PO.report_stock_picking_phieu_xuat_kho</field>
+            <field name="report_file">custom_SO_PO.report_stock_picking_phieu_xuat_kho</field>
+            <field name="print_report_name"></field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_stock_picking_phieu_tinh_so_luong" model="ir.actions.report">
+            <field name="name">Phiếu tính số lượng</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">custom_SO_PO.report_stock_picking_phieu_tinh_so_luong</field>
+            <field name="report_file">custom_SO_PO.report_stock_picking_phieu_tinh_so_luong</field>
+            <field name="print_report_name"></field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <record id="action_report_stock_picking_phieu_de_nghi_kiem_xuat_kho"
+            model="ir.actions.report">
+            <field name="name">Phiếu đề nghị kiêm xuất kho</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">custom_SO_PO.report_stock_picking_phieu_de_nghi_kiem_xuat_kho</field>
+            <field name="report_file">custom_SO_PO.report_stock_picking_phieu_de_nghi_kiem_xuat_kho</field>
+            <field name="print_report_name"></field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_stock_picking_lenh_kho" model="ir.actions.report">
+            <field name="name">Lệnh nhập kho</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">custom_SO_PO.report_stock_picking_lenh_kho</field>
+            <field name="report_file">custom_SO_PO.report_stock_picking_lenh_kho</field>
+            <field name="print_report_name"></field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_type">report</field>
         </record>
 

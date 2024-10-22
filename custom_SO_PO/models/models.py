@@ -24,9 +24,9 @@ class StockMove(models.Model):
             dest_quantity = sum(l.product_uom_qty for l in dest_moves )
             update_qty = quantity - dest_quantity
             for move in dest_moves:
-                if update_qty != 0:
+                if update_qty < 0 or update_qty > 0:
                     qty = move.product_uom_qty + update_qty
-                    move.write({'product_uom_qty':qty})
+                    move.with_context(force_write=True).write({'product_uom_qty':qty })
                     update_qty = 0
                     move.picking_id.action_assign()
         return moves
@@ -90,7 +90,6 @@ class StockPicking(models.Model):
         for move in moves:
             origin = move.picking_id.origin
             partner_id = move.picking_id.partner_id.id
-            # move.write({'product_uom_qty': move.product_uom_qty + 1})
             data = {}
             move_dests = move.move_dest_ids
             for m in move_dests:
@@ -116,5 +115,57 @@ class StockPicking(models.Model):
         for attachment in attachments:
             attachment.copy({'res_model': 'stock.picking', 'res_id': dest_picking.id})
 
+class Stock_Warehouse(models.Model):
+    _inherit = ['stock.warehouse']
+    customize_reception = fields.Boolean(string='Customize Reception', default = 'True')
+
+
+    def write(self, vals):
+        super().write(vals)
+        for warehouse in self:
+            input_loc = self.env['stock.location'].search([('barcode', '=',warehouse.code + '-INPUT'),'|',('active', '=', False), ('active', '!=', False)],limit=1)
+            quality_loc = self.env['stock.location'].search([('barcode', '=',warehouse.code + '-QUALITY'),'|',('active', '=', False), ('active', '!=', False)],limit=1)
+            stock_loc = self.env['stock.location'].search([('barcode', '=',warehouse.code + '-STOCK'),'|',('active', '=', False), ('active', '!=', False)],limit=1)
+            
+            barcode = warehouse.code + '-INPUT-QC'
+            qc_picking_type = self.env['stock.picking.type'].search([('barcode', '=',barcode),'|',('active', '=', False), ('active', '!=', False)],limit=1)
+            if not qc_picking_type:
+                qc_picking_type = self.env['stock.picking.type'].create({
+                    'name': 'Kiểm tra chất lượng', 'barcode': barcode, 'sequence_code': 'INPUT-QC', 'warehouse_id': warehouse.id, 
+                    'code': 'internal', 'show_operations': True, 'use_create_lots': False, 'use_existing_lots': True, 
+                    'default_location_src_id': input_loc.id, 'default_location_dest_id': quality_loc.id })
+            barcode = warehouse.code + '-STORE'
+            store_picking_type = self.env['stock.picking.type'].search([('barcode', '=',barcode),'|',('active', '=', False), ('active', '!=', False)],limit=1)
+            if not store_picking_type:
+                store_picking_type = self.env['stock.picking.type'].create({
+                    'name': 'Lưu kho', 'barcode': barcode, 'sequence_code': 'STORE', 'warehouse_id': warehouse.id, 
+                    'code': 'internal', 'show_operations': True, 'use_create_lots': False, 'use_existing_lots': True, 
+                    'default_location_src_id': quality_loc.id, 'default_location_dest_id': stock_loc.id })
+                
+            qc_rule = self.env['stock.rule'].search([('location_src_id', '=', input_loc.id), ('location_dest_id', '=', quality_loc.id)],limit=1)
+            store_rule_3 = self.env['stock.rule'].search([('location_src_id', '=', quality_loc.id), ('location_dest_id', '=', stock_loc.id)],limit=1)
+            store_rule_2 = self.env['stock.rule'].search([('location_src_id', '=', input_loc.id), ('location_dest_id', '=', stock_loc.id)],limit=1)
+            if warehouse.reception_steps == 'three_steps' and warehouse.customize_reception:
+                qc_picking_type.write({'active':True})
+                store_picking_type.write({'active':True,'default_location_src_id': quality_loc.id, 'default_location_dest_id': stock_loc.id})
+                qc_rule.write({ 'picking_type_id': qc_picking_type.id })
+                store_rule_3.write({ 'picking_type_id': store_picking_type.id })
+            elif warehouse.reception_steps == 'two_steps' and warehouse.customize_reception:
+                qc_picking_type.write({'active':False})
+                store_picking_type.write({'active':True,'default_location_src_id': input_loc.id, 'default_location_dest_id': stock_loc.id})
+                store_rule_2.write({ 'picking_type_id': store_picking_type.id })
+            else:
+                qc_picking_type.write({'active':False})
+                store_picking_type.write({'active':False})
+
+
+    @api.model
+    def check_access_rights(self, operation, raise_exception=True):
+        if self.env.su:
+            return True
+        permissions = [{'group':'smartbiz_stock.group_roles_inventory___configuaration_readonly_5','read':True,'write':False,'create':False,'unlink':False },]
+        if any(self.env.user.has_group(perm['group']) for perm in permissions):
+            return any(self.env.user.has_group(perm['group']) and perm[operation] for perm in permissions)
+        return super().check_access_rights(operation, raise_exception=raise_exception)
 
 

@@ -19,6 +19,12 @@
         'views/purchase_order_line_view.xml',
         'views/view_stock_picking.xml'
     ],
+    'assets': {
+        'web.assets_backend': {
+            'product_image/static/src/**/*.js',
+            'product_image/static/src/**/*.xml',
+        }
+    },
     'images': ['static/description/banner.jpg'],
     'license': 'LGPL-3',
     'installable': True,

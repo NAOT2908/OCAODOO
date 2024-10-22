@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record model="ir.ui.view" id="mrp_bom_report_tree">
+                <field name="name">mrp_bom_report_tree</field>
+                <field name="model">mrp.bom_report</field>
+                <field name="priority" eval="7" />
+                <field name="arch" type="xml">
+                        <tree string="Tree Reserve Report">
+                                <field name="state" />
+                                <field name="date_from" />
+                                <field name="to_date" />
+                                <field name="name" invisible="1" />
+                        </tree>
+                </field>
+        </record>
+        <record model="ir.ui.view" id="mrp_bom_report_form">
+                <field name="name">mrp_bom_report_form</field>
+                <field name="model">mrp.bom_report</field>
+                <field name="priority" eval="6" />
+                <field name="arch" type="xml">
+                        <form string="MRP Report">
+                                <header>
+                                        <button name="action_not_viewed_view_report"
+                                                string="View Report" type="object"
+                                                class="oe_highlight"
+                                                invisible="bool(state) == False" />
+                                        <button name="check_report" string="Export xls"
+                                                type="object" class="oe_highlight"
+                                                icon='fa-download' />
+                                        <button name="print_pdf" string="Print Pdf" type="object"
+                                                class="oe_highlight" icon='fa-download' />
+                                        <button string="Cancel" class="oe_link" special="cancel" />
+                                        <field name="state" widget="statusbar" />
+                                </header>
+                                <sheet>
+                                        <group col="1">
+                                                <field name="date_from" />
+                                                <field name="to_date" />
+                                                <field name="name" invisible="1" />
+                                        </group>
+                                        <group>
+                                                <group>
+                                                        <field name="product_id"
+                                                                widget="many2many_tags" />
+                                                        <field name="filter" />
+                                                        <field name="date_from"
+                                                                invisible="filter == False"
+                                                                required="filter == True" />
+                                                </group>
+                                                <group>
+                                                        <field name="state" />
+                                                        <field name="filter_user" />
+                                                        <field name="responsible_id"
+                                                                widget="many2many_tags"
+                                                                invisible="filter_user == False"
+                                                                required="filter_user == True" />
+                                                </group>
+                                        </group>
+                                </sheet>
+
+                                <footer>
+
+                                </footer>
+                                <div class="oe_chatter">
+                                        <field name="message_follower_ids" widget="mail_followers" />
+                                        <field name="activity_ids" widget="mail_activity" />
+                                        <field name="message_ids" widget="mail_thread" />
+                                </div>
+                        </form>
+                </field>
+        </record>
+        <record model="ir.actions.act_window" id="mrp_bom_report_action">
+                <field name="name">MRP BOM Report</field>
+                <field name="res_model">mrp.bom_report</field>
+                <field name="view_mode">tree,form</field>
+                <field name="domain">[]</field>
+                <field name="context">{}</field>
+        </record>
+
+        <!-- <record model="ir.actions.act_window" id="tcc_reserve_report_line_action">
+                <field name="name">Reserve Report Line</field>
+                <field name="res_model">tcc.reserve_report_line</field>
+                <field name="view_mode">tree,form,graph,pivot</field>
+                <field name="domain">[]</field>
+                <field name="context">{}</field>
+        </record> -->
+
+        <!--    Manufacturing Reports Menu  -->
+        <menuitem id="mrp_report_menu_action" parent="mrp.menu_mrp_reporting"
+                name="Manufacturing Reports"
+                action="mrp_report_action" sequence="5" />
+
+        <menuitem id="mrp_bom_report_menu_action" parent="mrp.menu_mrp_reporting"
+                name="BOM Reports"
+                action="mrp_bom_report_action" sequence="6" />
+
+
+</odoo>
